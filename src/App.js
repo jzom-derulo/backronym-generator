@@ -35,7 +35,7 @@ function App() {
   // https://api.datamuse.com/words?lc=drink&sp=w*
 
   // to track the index numbers of the letters starting with the 2nd
-  const [ index, setIndex ] = useState(1);
+  const [ index, setIndex ] = useState();
   // where the userWord letters are stored 
   const [ letters, setLetters ] = useState([]);
   // to hold which letter is currently in state
@@ -56,6 +56,7 @@ function App() {
     // setFirstLetter(userLetters[0]);
     setLetters(userLetters);
     setCurrentLetter(userLetters[0]);
+    setIndex(1);
   }
 
 
