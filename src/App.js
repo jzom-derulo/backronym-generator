@@ -40,10 +40,8 @@ function App() {
   const [ letters, setLetters ] = useState([]);
   // to hold which letter is currently in state
   const [ currentLetter, setCurrentLetter ] = useState('')
-  //  words corresponding to the first letter
-  const [ firstLetterWords, setFirstLetterWords ] = useState([]);
-  //  words corresponding to the rest of the letters
-  const [ restOfWords, setRestOfWords ] = useState([]);
+  //  words corresponding to the current letter
+  const [ currentWords, setcurrentWords ] = useState([]);
 
   // placeholders for APIs
   const numberOfAPIWords = 10;
@@ -62,7 +60,8 @@ function App() {
 
 
   const changeLetters = () => {
-    // the idea is when the button is clicked, move on to the next index number in the array of letters
+    // when the button is clicked, move on to the next index number in the array of letters
+      // while the index is less than the length of the array, move on to the next letter
     if ( index < letters.length) {
       setIndex(index + 1)
       const nextLetter = letters[index];
@@ -81,7 +80,7 @@ function App() {
           .then((firstWords) => {
             if (letters.length) {
               console.log("words corresponding to first letter", firstWords)
-              setFirstLetterWords(firstWords);
+              setcurrentWords(firstWords);
             }
           })
     
@@ -89,6 +88,7 @@ function App() {
 
   useEffect(
     () => {
+      // right now previousWord is hard coded, we gotta swap that for whatever word the user chose last
       fetch(`https://api.datamuse.com/words?lc=${previousWord}&sp=${currentLetter}*&max=${numberOfAPIWords}`)
       .then((response) => {
         return response.json()
@@ -96,7 +96,7 @@ function App() {
       .then((words) => {
         if (letters.length) {
           console.log("words corresponding to next letter", words) 
-          setRestOfWords(words);
+          setcurrentWords(words);
         }
       })
     }, [index]
