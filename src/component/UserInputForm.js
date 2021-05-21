@@ -1,16 +1,16 @@
 import { useState } from "react";
 
 
-const UserInputForm = ({handleClick}) => {
-  const [ userWord, setUserWord ] = useState(''); 
+const UserInputForm = ({ handleClick }) => {
+  const [userWord, setUserWord] = useState('');
 
- return (
-  <form action="submit">
-    <label htmlFor="userInput">Type in a word</label>  
-    <input type="text" value={userWord} id="userInput" onChange={(event) => setUserWord(event.target.value)}/>
-    <button onClick={handleClick(userWord)}>Generate!</button>
-  </form>
- )
-} 
+  return (
+    <form action="submit">
+      <label htmlFor="userInput">Type in a word</label>
+      <input type="text" value={userWord} id="userInput" onChange={(event) => setUserWord(event.target.value)} />
+      <button onClick={handleClick(userWord)}>Generate!</button>
+    </form>
+  )
+}
 
 export default UserInputForm;
