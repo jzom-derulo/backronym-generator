@@ -34,35 +34,79 @@ function App() {
   // for every subsequent letter
   // https://api.datamuse.com/words?lc=drink&sp=w*
 
-  const [letters, setLetters] = useState([]);
-  const [firstLetterWords, setFirstLetterWords] = useState([]);
-  const num = 10;
+  // to track the index numbers of the letters starting with the 2nd
+  const [ index, setIndex ] = useState();
+  // where the userWord letters are stored 
+  const [ letters, setLetters ] = useState([]);
+  // to hold which letter is currently in state
+  const [ currentLetter, setCurrentLetter ] = useState('')
+  //  words corresponding to the current letter
+  const [ currentWords, setcurrentWords ] = useState([]);
+
+  // placeholders for APIs
+  const numberOfAPIWords = 10;
+  const previousWord = 'park';
 
   const handleClick = (userWord) => (event) => {
     event.preventDefault();
     // split word into individual letters
-    console.log(userWord);
+    // console.log(userWord);
     const userLetters = [...userWord];
     console.log(userLetters);
+    // setFirstLetter(userLetters[0]);
     setLetters(userLetters);
+    setCurrentLetter(userLetters[0]);
+    setIndex(1);
+  }
+
+
+  const changeLetters = () => {
+    // when the button is clicked, move on to the next index number in the array of letters
+      // while the index is less than the length of the array, move on to the next letter
+    if ( index < letters.length) {
+      setIndex(index + 1)
+      const nextLetter = letters[index];
+      setCurrentLetter(nextLetter);
+      console.log(nextLetter);    
+    }
   }
 
   useEffect(
     () => {
-      // put user input 
-      fetch(`https://api.datamuse.com/sug?s=${letters[0]}&max=${num}`)
-        .then((response) => {
-          return response.json()
-        })
-        .then((words) => {
-          console.log(words)
-          setFirstLetterWords(words);
-        })
+      // put user input
+        fetch(`https://api.datamuse.com/sug?s=${letters[0]}&max=${numberOfAPIWords}`)
+          .then((response) => {
+            return response.json()
+          })
+          .then((firstWords) => {
+            if (letters.length) {
+              console.log("words corresponding to first letter", firstWords)
+              setcurrentWords(firstWords);
+            }
+          })
+    
     }, [letters])
+
+  useEffect(
+    () => {
+      // right now previousWord is hard coded, we gotta swap that for whatever word the user chose last
+      fetch(`https://api.datamuse.com/words?lc=${previousWord}&sp=${currentLetter}*&max=${numberOfAPIWords}`)
+      .then((response) => {
+        return response.json()
+      })
+      .then((words) => {
+        if (letters.length) {
+          console.log("words corresponding to next letter", words) 
+          setcurrentWords(words);
+        }
+      })
+    }, [index]
+  )
 
   return (
     <>
       <UserInputForm handleClick={handleClick} />
+      <button onClick={changeLetters}>change the letters</button>
     </>
   );
 }
