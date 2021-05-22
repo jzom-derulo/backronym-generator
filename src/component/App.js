@@ -1,7 +1,8 @@
-import './App.css';
+import '../App.css';
 import { useState, useEffect } from 'react';
-import firebase from './config/firebase.js';
-import UserInputForm from './component/UserInputForm.js';
+import firebase from '../config/firebase.js';
+import UserInputForm from './UserInputForm.js';
+import WordDisplay from './WordDisplay.js';
 // import hooks
 // create firebase database and import 
 
@@ -44,7 +45,7 @@ function App() {
   const [ currentWords, setcurrentWords ] = useState([]);
 
   // placeholders for APIs
-  const numberOfAPIWords = 10;
+  const numberOfAPIWords = 30;
   const previousWord = 'park';
 
   const handleClick = (userWord) => (event) => {
@@ -71,6 +72,8 @@ function App() {
     }
   }
 
+  
+
   useEffect(
     () => {
       // put user input
@@ -95,7 +98,7 @@ function App() {
         return response.json()
       })
       .then((words) => {
-        if (letters.length) {
+        if (currentWords.length) {
           console.log("words corresponding to next letter", words) 
           setcurrentWords(words);
         }
@@ -105,8 +108,12 @@ function App() {
 
   return (
     <>
+      <h1>Backcronym Generator</h1>
       <UserInputForm handleClick={handleClick} />
+      
       <button onClick={changeLetters}>change the letters</button>
+
+      <WordDisplay wordOptions={currentWords} letterList={letters}/>
     </>
   );
 }
