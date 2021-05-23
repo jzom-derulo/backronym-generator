@@ -150,7 +150,7 @@ function App() {
       
       {/* <button onClick={changeLetters}>change the letters</button> */}
 
-      <WordDisplay wordOptions={wordOptions} letterList={letters} changeLetters={changeLetters} getRandomWord={getRandomWord} currentWord={currentWord}/>
+      <WordDisplay wordOptions={wordOptions} letterList={letters} changeLetters={changeLetters} getRandomWord={getRandomWord} currentWord={currentWord} chosenWords={chosenWords}/>
 
       {/* <SavedBackronyms/> */}
     </>
