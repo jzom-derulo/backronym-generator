@@ -9,58 +9,55 @@ const WordDisplay = ({ wordOptions, letterList, changeLetters }) => {
     const [chosenWords, setChosenWords] = useState([])
 
     console.log(wordOptions);
-
     console.log(letterList);
 
-    // const getRandomWord = () => {
-    //     console.log(wordOptions);
-    //     const randomIndex = Math.floor(Math.random() * wordOptions.length);
-    //     const randomWordObj = wordOptions[randomIndex];
-    //     console.log(randomIndex);
-    //     console.log(randomWordObj)
 
-    //     for (let key in randomWordObj) {
-    //         // const {word, score} = randomWordObj[key];
-    //         console.log(randomWordObj[key])
+    const getRandomWord = () => {
+        console.log(wordOptions);
+        const randomIndex = Math.floor(Math.random() * wordOptions.length);
+        const randomWord = wordOptions[randomIndex];
+        console.log(randomWord);
+        // if (randomWord.length > 2 ) {
+        //     setCurrentWord(randomWord);
+        // } else {
+        //     // wordOptions.filter((nonWord) => {
 
-    //         if (key === "word") {
-    //             setCurrentRandomWord(randomWordObj[key]);
+        //     // })
+        // }
+    }
+    getRandomWord();
+
+
+    // const getcurrentWord = () => {
+
+    //     for (let i = 0; i < wordOptions.length - 1; i++) {
+
+
+    //         setCurrentWord(wordOptions[0].word);
+    //         console.log(currentWord);
+    //         // setUserChoiceStatus(true);
+
+    //         if (userChoiceStatus === false) {
+    //             console.log(currentWord);
+    //             setCurrentWord(wordOptions[i+1].word);
+    //         } else {
+    //             break;
+    //             // setUserChoiceStatus(true);
+
     //         }
+    //         console.log("next")
+    //         setUserChoiceStatus(true);
+            
+
     //     }
     // }
 
-    const getcurrentWord = () => {
 
-        
-
-        for (let i = 0; i < wordOptions.length - 1; i++) {
-
-
-            setCurrentWord(wordOptions[0].word);
-            console.log(currentWord);
-            // setUserChoiceStatus(true);
-
-            if (userChoiceStatus === false) {
-                console.log(currentWord);
-                setCurrentWord(wordOptions[i+1].word);
-            } else {
-                break;
-                // setUserChoiceStatus(true);
-
-            }
-            console.log("next")
-            setUserChoiceStatus(true);
-            
-
-        }
-    }
-
-
-    useEffect(
-        () => {
-            getcurrentWord();
-        }, [userChoiceStatus]
-    )
+    // useEffect(
+    //     () => {
+    //         getcurrentWord();
+    //     }, [userChoiceStatus]
+    // )
 
     // const handleAcceptChoice = () => {
     //     setUserChoiceStatus(true);

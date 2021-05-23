@@ -86,8 +86,12 @@ function App() {
           })
           .then((firstWords) => {
             if (letters.length) {
-              console.log("words corresponding to first letter", firstWords)
-              setcurrentWords(firstWords);
+              const firstWordsArray = firstWords.map((word) => {
+                return word.word;
+              })
+
+              console.log("words corresponding to first letter", firstWordsArray)
+              setcurrentWords(firstWordsArray);
             }
           })
 
@@ -106,8 +110,11 @@ function App() {
       })
       .then((words) => {
         if (currentWords.length) {
-          console.log("words corresponding to next letter", words) 
-          setcurrentWords(words);
+          const wordsArray = words.map((word) => {
+            return word.word;
+          })
+          console.log("words corresponding to next letter", wordsArray)
+          setcurrentWords(wordsArray);
         }
       })
     }, [index]
