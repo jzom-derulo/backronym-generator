@@ -49,7 +49,7 @@ function App() {
 
   // placeholders for APIs
   const numberOfAPIWords = 20;
-  const previousWord = '';
+  const previousWord = 'world';
 
   const handleClick = (userWord) => (event) => {
     event.preventDefault();
@@ -100,10 +100,8 @@ function App() {
               console.log("words corresponding to first letter", firstWordsArray)
               setWordOptions(firstWordsArray);
               getRandomWord(firstWordsArray);
-
             }
           })
-    
     }, [letters])
 
 
