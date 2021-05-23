@@ -2,7 +2,7 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import firebase from './config/firebase.js';
 import UserInputForm from './component/UserInputForm.js';
-import SavedBackronyms from "./component/SavedBackronyms.js";
+
 // import hooks
 // create firebase database and import 
 
@@ -109,7 +109,7 @@ function App() {
       <UserInputForm handleClick={handleClick} />
       <button onClick={changeLetters}>change the letters</button>
 
-      <SavedBackronyms/>
+      
     </>
   );
 }
