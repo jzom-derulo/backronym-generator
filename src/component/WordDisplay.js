@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, currentWord }) => {
 
     // holds whether the user chose yes or no to wordOption given
-    const [userChoiceStatus, setUserChoiceStatus] = useState(false);
+    // const [userChoiceStatus, setUserChoiceStatus] = useState(false);
     // will hold the words the user choooses
     const [chosenWords, setChosenWords] = useState([])
 
@@ -12,49 +12,31 @@ const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, cu
     // console.log('letterList', letterList);
 
 
-    
+
     //MUST FIGURE OUT WHERE TO CALL/DEFINE THIS FUNCTION TO CONNECT IT WITH GENERATE 
 
 
-    // getRandomWord();
 
-    // const getcurrentWord = () => {
-        
-    //     for (let i = 0; i < wordOptions.length - 1; i++) {
-
-    //         setCurrentWord(wordOptions[0].word);
-    //         console.log(currentWord);
-    //         // setUserChoiceStatus(true);
-
-    //         if (userChoiceStatus === false) {
-    //             console.log(currentWord);
-    //             setCurrentWord(wordOptions[i+1].word);
-    //         } else {
-    //             break;
-    //             // setUserChoiceStatus(true);
-
-    //         }
-    //         console.log("next")
-    //         setUserChoiceStatus(true);
-            
-
-    //     }
-    // }
-
-    // useEffect(
-    //     () => {
-    //         getcurrentWord();
-    //     }, [userChoiceStatus]
-    // )
-
-    // const handleAcceptChoice = () => {
-    //     setUserChoiceStatus(true);
-    // }
-    
     const handleRejectChoice = () => {
-        setUserChoiceStatus(false);
+        // setUserChoiceStatus(false);
         getRandomWord(wordOptions);
     }
+
+    const splitFirstLetter = (word) => {
+        // const splittedWord = [];
+        // for (let i = 1; i < word.length; i++) {
+        //     // console.log(word[i]);
+            
+        //     splittedWord.push(word[i])
+            
+        // }
+        // console.log(splittedWord.join())
+        // return splittedWord.join();
+
+        return word.substring(1);
+        
+    }
+    // splitFirstLetter("dog");
 
 
     return (
@@ -70,7 +52,12 @@ const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, cu
 
                                 <p>
                                     {letter}
-                                    <span>{currentWord}</span>
+                                    <span>
+
+                                        {/* {currentWord} */}
+                                        {splitFirstLetter(currentWord)}
+
+                                    </span>
                                 </p>
                             </li>
                         )
