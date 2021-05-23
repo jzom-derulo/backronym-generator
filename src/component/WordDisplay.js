@@ -8,15 +8,15 @@ const WordDisplay = ({ wordOptions, letterList, changeLetters }) => {
     const [currentWord, setCurrentWord] = useState("")
     const [chosenWords, setChosenWords] = useState([])
 
-    console.log(wordOptions);
-    console.log(letterList);
+    console.log('wordOptions', wordOptions);
+    console.log('letterList', letterList);
 
 
     const getRandomWord = () => {
-        console.log(wordOptions);
+        console.log('getRandomWord has been called/wordOptions:', wordOptions);
         const randomIndex = Math.floor(Math.random() * wordOptions.length);
         const randomWord = wordOptions[randomIndex];
-        console.log(randomWord);
+        console.log('randomWord', randomWord);
         // if (randomWord.length > 2 ) {
         //     setCurrentWord(randomWord);
         // } else {
@@ -74,7 +74,7 @@ const WordDisplay = ({ wordOptions, letterList, changeLetters }) => {
                 {
                     letterList.map((letter, index) => {
 
-                        { console.log(letter) }
+                        { console.log('letter', letter) }
                         return (
 
                             <li key={index}>

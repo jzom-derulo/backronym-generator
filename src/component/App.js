@@ -43,7 +43,7 @@ function App() {
   // to hold which letter is currently in state
   const [ currentLetter, setCurrentLetter ] = useState('')
   //  words corresponding to the current letter
-  const [ currentWords, setcurrentWords ] = useState([]);
+  const [ wordOptions, setWordOptions ] = useState([]);
 
   // placeholders for APIs
   const numberOfAPIWords = 20;
@@ -54,7 +54,7 @@ function App() {
     // split word into individual letters
     // console.log(userWord);
     const userLetters = [...userWord];
-    console.log(userLetters);
+    console.log('userLetters:', userLetters);
     // setFirstLetter(userLetters[0]);
     setLetters(userLetters);
     setCurrentLetter(userLetters[0]);
@@ -71,7 +71,7 @@ function App() {
       setIndex(index + 1)
       const nextLetter = letters[index];
       setCurrentLetter(nextLetter);
-      console.log(nextLetter);    
+      console.log('nextLetter', nextLetter);    
     }
   }
   
@@ -91,7 +91,7 @@ function App() {
               })
 
               console.log("words corresponding to first letter", firstWordsArray)
-              setcurrentWords(firstWordsArray);
+              setWordOptions(firstWordsArray);
             }
           })
 
@@ -109,12 +109,12 @@ function App() {
         return response.json()
       })
       .then((words) => {
-        if (currentWords.length) {
+        if (wordOptions.length) {
           const wordsArray = words.map((word) => {
             return word.word;
           })
           console.log("words corresponding to next letter", wordsArray)
-          setcurrentWords(wordsArray);
+          setWordOptions(wordsArray);
         }
       })
     }, [index]
@@ -127,9 +127,9 @@ function App() {
       
       <button onClick={changeLetters}>change the letters</button>
 
-      <WordDisplay wordOptions={currentWords} letterList={letters} changeLetters={changeLetters}/>
+      <WordDisplay wordOptions={wordOptions} letterList={letters} changeLetters={changeLetters}/>
 
-      <SavedBackronyms/>
+      {/* <SavedBackronyms/> */}
     </>
   );
 }
