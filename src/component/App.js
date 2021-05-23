@@ -47,9 +47,11 @@ function App() {
   // holds the current word the user can see
   const [currentWord, setCurrentWord] = useState("")
 
+  const [chosenWords, setChosenWords] = useState([])
+
   // placeholders for APIs
   const numberOfAPIWords = 20;
-  const previousWord = 'world';
+  // const previousWord = 'world';
 
   const handleClick = (userWord) => (event) => {
     event.preventDefault();
@@ -61,6 +63,12 @@ function App() {
     setLetters(userLetters);
     setCurrentLetter(userLetters[0]);
     setIndex(1); 
+
+    setChosenWords([]);
+  }
+
+  const handleReset = () => {
+    setLetters([]);
   }
 
   const getRandomWord = (array) => {
@@ -72,10 +80,19 @@ function App() {
     console.log('randomWord', randomWord);
   }
 
+  
+  const saveWord = (word) => {
+    chosenWords.push(word);
+    console.log(chosenWords);
+  }
+
 
   const changeLetters = () => {
     // when the button is clicked, move on to the next index number in the array of letters
       // while the index is less than the length of the array, move on to the next letter
+    console.log("currentWord: ", currentWord);
+    saveWord(currentWord);
+
     if ( index < letters.length) {
       setIndex(index + 1)
       const nextLetter = letters[index];
@@ -108,7 +125,7 @@ function App() {
   useEffect(
     () => {
       // right now previousWord is hard coded, we gotta swap that for whatever word the user chose last
-      fetch(`https://api.datamuse.com/words?lc=${previousWord}&sp=${currentLetter}*&max=${numberOfAPIWords}`)
+      fetch(`https://api.datamuse.com/words?lc=${currentWord}&sp=${currentLetter}*&max=${numberOfAPIWords}`)
       .then((response) => {
         return response.json()
       })
@@ -125,12 +142,11 @@ function App() {
     }, [index]
   )
   
- 
 
   return (
     <>
       <h1>Backcronym Generator</h1>
-      <UserInputForm handleClick={handleClick} />
+      <UserInputForm handleClick={handleClick} handleReset={handleReset}/>
       
       {/* <button onClick={changeLetters}>change the letters</button> */}
 
