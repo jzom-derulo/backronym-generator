@@ -45,7 +45,7 @@ function App() {
   const [ currentWords, setcurrentWords ] = useState([]);
 
   // placeholders for APIs
-  const numberOfAPIWords = 30;
+  const numberOfAPIWords = 20;
   const previousWord = 'park';
 
   const handleClick = (userWord) => (event) => {
@@ -58,6 +58,8 @@ function App() {
     setLetters(userLetters);
     setCurrentLetter(userLetters[0]);
     setIndex(1);
+
+      
   }
 
 
@@ -71,7 +73,7 @@ function App() {
       console.log(nextLetter);    
     }
   }
-
+  
   
 
   useEffect(
@@ -87,8 +89,12 @@ function App() {
               setcurrentWords(firstWords);
             }
           })
+
     
     }, [letters])
+
+
+    
 
   useEffect(
     () => {
