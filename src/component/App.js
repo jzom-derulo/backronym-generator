@@ -119,7 +119,7 @@ function App() {
       
       <button onClick={changeLetters}>change the letters</button>
 
-      <WordDisplay wordOptions={currentWords} letterList={letters}/>
+      <WordDisplay wordOptions={currentWords} letterList={letters} changeLetters={changeLetters}/>
     </>
   );
 }

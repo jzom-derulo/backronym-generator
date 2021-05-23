@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import SingleWordDisplay from './SingleWordDisplay.js';
-
-const WordDisplay = ({ wordOptions, letterList }) => {
 
 
-    const [userChoiceStatus, setUserChoiceStatus] = useState();
+const WordDisplay = ({ wordOptions, letterList, changeLetters }) => {
+
+
+    const [userChoiceStatus, setUserChoiceStatus] = useState(false);
     const [currentWord, setCurrentWord] = useState("")
     const [chosenWords, setChosenWords] = useState([])
 
@@ -30,57 +30,72 @@ const WordDisplay = ({ wordOptions, letterList }) => {
     // }
 
     const getcurrentWord = () => {
+
+        
+
         for (let i = 0; i < wordOptions.length - 1; i++) {
-            {
-                if (userChoiceStatus === true) {
-
-                    console.log(wordOptions[i].word)
-                    setCurrentWord(wordOptions[i].word);
 
 
+            setCurrentWord(wordOptions[0].word);
+            console.log(currentWord);
+            // setUserChoiceStatus(true);
 
-                    break;
-                } else {
-                    setUserChoiceStatus(null);
+            if (userChoiceStatus === false) {
+                console.log(currentWord);
+                setCurrentWord(wordOptions[i+1].word);
+            } else {
+                break;
+                // setUserChoiceStatus(true);
 
-                    console.log("next")
-                }
             }
+            console.log("next")
+            setUserChoiceStatus(true);
+            
+
         }
     }
-
 
 
     useEffect(
         () => {
             getcurrentWord();
-        }, [setUserChoiceStatus, userChoiceStatus]
+        }, [userChoiceStatus]
     )
 
-    const handleAcceptChoice = () => {
-        setUserChoiceStatus(true);
-    }
+    // const handleAcceptChoice = () => {
+    //     setUserChoiceStatus(true);
+    // }
+    
     const handleRejectChoice = () => {
         setUserChoiceStatus(false);
     }
 
 
-
-
     return (
-        <ul className="wordList">
-            {
-                letterList.map((letter, index) => {
+        <>
+            <ul className="wordList">
+                {
+                    letterList.map((letter, index) => {
 
-                    { console.log(letter) }
-                    return (
-                        <SingleWordDisplay letter={letter} key={index} currentWord={currentWord} />
-                    )
-                })
-            }
-            <button className="userAccept" onClick={handleAcceptChoice} key="accept">Accept</button>
+                        { console.log(letter) }
+                        return (
+
+                            <li key={index}>
+
+                                <p>
+                                    {letter}
+                                    <span>{currentWord}</span>
+                                </p>
+                            </li>
+                        )
+                    })
+                }
+
+            </ul>
+
+            <button className="userAccept" onClick={changeLetters} key="accept">Accept</button>
             <button className="userReject" onClick={handleRejectChoice} key="reject">Reject</button>
-        </ul>
+        </>
     )
 }
 
