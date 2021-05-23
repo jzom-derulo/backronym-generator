@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import firebase from '../config/firebase.js';
 import UserInputForm from './UserInputForm.js';
 import WordDisplay from './WordDisplay.js';
+import SavedBackronyms from "./SavedBackronyms.js";
 // import hooks
 // create firebase database and import 
 
@@ -120,6 +121,8 @@ function App() {
       <button onClick={changeLetters}>change the letters</button>
 
       <WordDisplay wordOptions={currentWords} letterList={letters} changeLetters={changeLetters}/>
+
+      <SavedBackronyms/>
     </>
   );
 }
