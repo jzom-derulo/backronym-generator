@@ -122,14 +122,24 @@ function App() {
 
   return (
     <>
-      <h1>Backcronym Generator</h1>
-      <UserInputForm handleClick={handleClick} />
-      
-      <button onClick={changeLetters}>change the letters</button>
+      <div className="wrapper">
 
-      <WordDisplay wordOptions={currentWords} letterList={letters} changeLetters={changeLetters}/>
+        <h1>Backcronym Generator</h1>
+        <UserInputForm handleClick={handleClick} />
+        
+        {/* <button onClick={changeLetters}>change the letters</button> */}
 
-      <SavedBackronyms/>
+        <div className="flexAllTheBackronyms">
+          
+          <WordDisplay wordOptions={currentWords} letterList={letters} changeLetters={changeLetters}/>
+
+          <SavedBackronyms/>
+
+        </div>
+
+      </div>
+
+      <footer>Made at <a href="https://junocollege.com/" target="_blank" rel="noopener noreferrer">Juno College</a></footer>
     </>
   );
 }
