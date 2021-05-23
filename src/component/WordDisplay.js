@@ -1,37 +1,26 @@
 import { useState, useEffect } from 'react';
 
 
-const WordDisplay = ({ wordOptions, letterList, changeLetters }) => {
+const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, currentWord }) => {
 
-
+    // holds whether the user chose yes or no to wordOption given
     const [userChoiceStatus, setUserChoiceStatus] = useState(false);
-    const [currentWord, setCurrentWord] = useState("")
+    // will hold the words the user choooses
     const [chosenWords, setChosenWords] = useState([])
 
-    console.log('wordOptions', wordOptions);
-    console.log('letterList', letterList);
+    // console.log('wordOptions', wordOptions);
+    // console.log('letterList', letterList);
 
 
-    const getRandomWord = () => {
-        console.log('getRandomWord has been called/wordOptions:', wordOptions);
-        const randomIndex = Math.floor(Math.random() * wordOptions.length);
-        const randomWord = wordOptions[randomIndex];
-        console.log('randomWord', randomWord);
-        // if (randomWord.length > 2 ) {
-        //     setCurrentWord(randomWord);
-        // } else {
-        //     // wordOptions.filter((nonWord) => {
+    
+    //MUST FIGURE OUT WHERE TO CALL/DEFINE THIS FUNCTION TO CONNECT IT WITH GENERATE 
 
-        //     // })
-        // }
-    }
-    getRandomWord();
 
+    // getRandomWord();
 
     // const getcurrentWord = () => {
-
+        
     //     for (let i = 0; i < wordOptions.length - 1; i++) {
-
 
     //         setCurrentWord(wordOptions[0].word);
     //         console.log(currentWord);
@@ -52,7 +41,6 @@ const WordDisplay = ({ wordOptions, letterList, changeLetters }) => {
     //     }
     // }
 
-
     // useEffect(
     //     () => {
     //         getcurrentWord();
@@ -65,6 +53,7 @@ const WordDisplay = ({ wordOptions, letterList, changeLetters }) => {
     
     const handleRejectChoice = () => {
         setUserChoiceStatus(false);
+        getRandomWord(wordOptions);
     }
 
 
@@ -74,7 +63,7 @@ const WordDisplay = ({ wordOptions, letterList, changeLetters }) => {
                 {
                     letterList.map((letter, index) => {
 
-                        { console.log('letter', letter) }
+                        // { console.log('letter', letter) }
                         return (
 
                             <li key={index}>

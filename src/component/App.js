@@ -44,10 +44,12 @@ function App() {
   const [ currentLetter, setCurrentLetter ] = useState('')
   //  words corresponding to the current letter
   const [ wordOptions, setWordOptions ] = useState([]);
+  // holds the current word the user can see
+  const [currentWord, setCurrentWord] = useState("")
 
   // placeholders for APIs
   const numberOfAPIWords = 20;
-  const previousWord = 'park';
+  const previousWord = '';
 
   const handleClick = (userWord) => (event) => {
     event.preventDefault();
@@ -58,9 +60,16 @@ function App() {
     // setFirstLetter(userLetters[0]);
     setLetters(userLetters);
     setCurrentLetter(userLetters[0]);
-    setIndex(1);
+    setIndex(1); 
+  }
 
-      
+  const getRandomWord = (array) => {
+    // console.log('getRandomWord has been called/wordOptions:', wordOptions);
+    const randomIndex = Math.floor(Math.random() * array.length);
+    const randomWord = array[randomIndex];
+
+    setCurrentWord(randomWord);
+    console.log('randomWord', randomWord);
   }
 
 
@@ -75,8 +84,6 @@ function App() {
     }
   }
   
-  
-
   useEffect(
     () => {
       // put user input
@@ -92,14 +99,13 @@ function App() {
 
               console.log("words corresponding to first letter", firstWordsArray)
               setWordOptions(firstWordsArray);
+              getRandomWord(firstWordsArray);
+
             }
           })
-
     
     }, [letters])
 
-
-    
 
   useEffect(
     () => {
@@ -115,19 +121,22 @@ function App() {
           })
           console.log("words corresponding to next letter", wordsArray)
           setWordOptions(wordsArray);
+          getRandomWord(wordsArray);
         }
       })
     }, [index]
   )
+  
+ 
 
   return (
     <>
       <h1>Backcronym Generator</h1>
       <UserInputForm handleClick={handleClick} />
       
-      <button onClick={changeLetters}>change the letters</button>
+      {/* <button onClick={changeLetters}>change the letters</button> */}
 
-      <WordDisplay wordOptions={wordOptions} letterList={letters} changeLetters={changeLetters}/>
+      <WordDisplay wordOptions={wordOptions} letterList={letters} changeLetters={changeLetters} getRandomWord={getRandomWord} currentWord={currentWord}/>
 
       {/* <SavedBackronyms/> */}
     </>
