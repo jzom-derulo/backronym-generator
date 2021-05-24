@@ -112,8 +112,9 @@ input {
 }
 
 .wordDisplay {
-    flex-basis: 40%;
+    flex-basis: 30%;
     margin-top: 2rem;
+    /* height: 70%; */
 }
 
 .wordChoice {
@@ -141,17 +142,19 @@ input {
 .flexButtons {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
     align-items: center;
+    margin-top: 4rem;
 }
 
 .flexButtons button {
     margin: 0;
+    margin-top: 3rem;
     margin-right: 3rem;
 }
 
 .flexAllTheBackronyms {
     display: flex;
+    /* height: 100vh; */
 }
 
 .restOfWord p {
@@ -170,7 +173,17 @@ input {
     padding: 2rem;
     margin: 2rem 0;
     margin-left: auto;
-    flex-basis: 30%;
+    flex-basis: 40%;
+    overflow: scroll;
+}
+
+.backronym {
+    display: flex;
+    justify-content: space-between;
+}
+
+.backronym p {
+    flex-basis: 70%;
 }
 
 
