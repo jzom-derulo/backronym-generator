@@ -146,6 +146,7 @@ function App() {
   return (
     <>
 
+
       <div className="wrapper">
 
         <h1>Backcronym Generator</h1>
@@ -155,7 +156,7 @@ function App() {
 
         <div className="flexAllTheBackronyms">
           
-          <WordDisplay wordOptions={wordOptions} letterList={letters} changeLetters={changeLetters} getRandomWord={getRandomWord} currentWord={currentWord}/>
+         <WordDisplay wordOptions={wordOptions} letterList={letters} changeLetters={changeLetters} getRandomWord={getRandomWord} currentWord={currentWord} chosenWords={chosenWords}/>
 
           <SavedBackronyms/>
 
@@ -164,6 +165,7 @@ function App() {
       </div>
 
       <footer>Made at <a href="https://junocollege.com/" target="_blank" rel="noopener noreferrer">Juno College</a></footer>
+
 
     </>
   );
