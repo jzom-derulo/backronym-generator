@@ -145,14 +145,28 @@ function App() {
 
   return (
     <>
-      <h1>Backcronym Generator</h1>
-      <UserInputForm handleClick={handleClick} handleReset={handleReset}/>
-      
-      {/* <button onClick={changeLetters}>change the letters</button> */}
 
-      <WordDisplay wordOptions={wordOptions} letterList={letters} changeLetters={changeLetters} getRandomWord={getRandomWord} currentWord={currentWord} chosenWords={chosenWords}/>
 
-      {/* <SavedBackronyms/> */}
+      <div className="wrapper">
+
+        <h1>Backcronym Generator</h1>
+        <UserInputForm handleClick={handleClick} />
+        
+        {/* <button onClick={changeLetters}>change the letters</button> */}
+
+        <div className="flexAllTheBackronyms">
+          
+         <WordDisplay wordOptions={wordOptions} letterList={letters} changeLetters={changeLetters} getRandomWord={getRandomWord} currentWord={currentWord} chosenWords={chosenWords}/>
+
+          <SavedBackronyms/>
+
+        </div>
+
+      </div>
+
+      <footer>Made at <a href="https://junocollege.com/" target="_blank" rel="noopener noreferrer">Juno College</a></footer>
+
+
     </>
   );
 }
