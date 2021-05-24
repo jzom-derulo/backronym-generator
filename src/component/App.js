@@ -49,6 +49,8 @@ function App() {
 
   const [chosenWords, setChosenWords] = useState([])
 
+  const savedBackronymsArray = [];
+
   // placeholders for APIs
   const numberOfAPIWords = 20;
   // const previousWord = 'world';
@@ -84,7 +86,8 @@ function App() {
 
   
   const saveWord = (word) => {
-    chosenWords.push(word);
+    savedBackronymsArray.push(word);
+    setChosenWords(savedBackronymsArray);
     console.log(chosenWords);
   }
 
@@ -160,7 +163,7 @@ function App() {
       <div className="wrapper">
 
         <h1>Backcronym Generator</h1>
-        <UserInputForm handleClick={handleClick} />
+        <UserInputForm handleClick={handleClick} chosenWords={chosenWords}/>
         
         {/* <button onClick={changeLetters}>change the letters</button> */}
 
