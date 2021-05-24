@@ -7,8 +7,6 @@ import SavedBackronyms from "./SavedBackronyms.js";
 // import hooks
 // create firebase database and import 
 
-
-
 // make a form 
 // create input for user to add word
 //button to submit form 
@@ -48,7 +46,7 @@ function App() {
   const [currentWord, setCurrentWord] = useState("")
 
   const [chosenWords, setChosenWords] = useState([])
-
+  
   // placeholders for APIs
   const numberOfAPIWords = 20;
   // const previousWord = 'world';
@@ -84,9 +82,9 @@ function App() {
 
   
   const saveWord = (word) => {
-    chosenWords.push(word);
-    console.log(chosenWords);
+    setChosenWords([...chosenWords, word]);
   }
+  console.log(chosenWords);
 
 
   const changeLetters = () => {
@@ -94,8 +92,6 @@ function App() {
       // while the index is less than the length of the array, move on to the next letter
     console.log("currentWord: ", currentWord);
     console.log(index)
-    
-    
 
     if ( index < letters.length ) {
       console.log('currentLetter', currentLetter);
@@ -155,12 +151,10 @@ function App() {
 
   return (
     <>
-
-
       <div className="wrapper">
 
         <h1>Backcronym Generator</h1>
-        <UserInputForm handleClick={handleClick} />
+        <UserInputForm handleClick={handleClick} chosenWords={chosenWords}/>
         
         {/* <button onClick={changeLetters}>change the letters</button> */}
 
@@ -175,12 +169,8 @@ function App() {
       </div>
 
       <footer>Made at <a href="https://junocollege.com/" target="_blank" rel="noopener noreferrer">Juno College</a></footer>
-
-
     </>
   );
 }
 
 export default App;
-
-

@@ -1,10 +1,35 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import firebase from '../config/firebase.js';
 
-
-const UserInputForm = ({ handleClick, handleReset }) => {
+const UserInputForm = ({ handleClick, handleReset, chosenWords }) => {
   const [userWord, setUserWord] = useState('');
 
+  // const [newBackronym, setNewBackronym] = useState('');
 
+  useEffect(() => {
+    checkForCompleteBackronym();
+    console.log('checkForCompleteBackronym called!');
+  }, [chosenWords]);
+
+  const checkForCompleteBackronym = () => {
+    if (chosenWords.length && chosenWords.length == userWord.length) {
+      saveNewBackronym();
+    }
+  }
+
+  const saveNewBackronym = () => {
+    const dbRef = firebase.database().ref();
+    console.log('saveNewBackronym called!');
+
+    const Backronym = {
+      word: userWord,
+      backronym: chosenWords.join(' ')
+    }
+
+    dbRef.push(Backronym);
+    setUserWord('');
+
+  }
 
   return (
     <form action="submit">

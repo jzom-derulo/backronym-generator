@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 
-
 const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, currentWord, chosenWords }) => {
 
     // holds whether the user chose yes or no to wordOption given
@@ -20,11 +19,9 @@ const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, cu
     }
 
     const splitFirstLetter = (word) => {
-
         return word.substring(1);      
     }
     // splitFirstLetter("dog");
-
 
     return (
         <>
@@ -53,8 +50,6 @@ const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, cu
                                     </li>
                                 )
                             })
-
-
                         }
                     </div>
 
@@ -64,19 +59,14 @@ const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, cu
                                 return (
                                     <li>
                                         {/* <p>{word}</p> */}
-
                                         <p>{splitFirstLetter(word)}</p>
                                     </li>
                                 )
-
                             })
                         }
                     </div>
-                    
                 </div>
-
             </ul>
-
         </>
     )
 }
