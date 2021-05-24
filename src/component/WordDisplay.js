@@ -30,8 +30,8 @@ const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, cu
                 <button className="userAccept" onClick={changeLetters} key="accept">Accept Word</button>
                 <button className="userReject" onClick={handleRejectChoice} key="reject">Change Word</button>
             </div>
-            <ul className="wordList">
-                <span>
+            <div className="wordDisplay">
+                <span className="wordChoice">
 
 
 
@@ -45,8 +45,9 @@ const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, cu
 
                 </span>
 
-                <div className="wordDisplay">
-                    <div>
+
+                <div className= "wordList">
+                    <ul>
                         {
                             letterList.map((letter, index) => {
 
@@ -60,7 +61,7 @@ const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, cu
                                 )
                             })
                         }
-                    </div>
+                    </ul>
 
                     <ul className="restOfWord">
                         {
@@ -73,9 +74,9 @@ const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, cu
                                 )
                             })
                         }
-                    </ul>
-                </div>
-            </ul>
+                    </ul> {/* restOfWord */}
+                </div> {/* wordList */}
+            </div> {/* wordDisplay */}
         </>
     )
 }

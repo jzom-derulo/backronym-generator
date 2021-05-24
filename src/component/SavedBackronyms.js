@@ -8,10 +8,12 @@ const SavedBackronyms = ({ backronymList, deleteBackronym }) => {
                 {
                     backronymList.map((backronym) => {
                         return (
-                            <li key={backronym.key}>
-                                <button onClick={() => deleteBackronym(backronym)}>Delete</button>
+                            <li className="backronym" key={backronym.key}>
 
                                 <p>{backronym.word}: {backronym.backronym}</p>
+
+                                <button onClick={() => deleteBackronym(backronym)}>Delete</button>
+
                             </li>
                         )
                     })

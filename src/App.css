@@ -23,7 +23,7 @@ html {
 .wrapper {
     margin: 0 auto;
     max-width: 1440px;
-    width: 95%;
+    width: 90%;
 }
 .root {
     height: 100vh;
@@ -63,18 +63,28 @@ ul {
     list-style-type: none;
 }
 
+button,
+input {
+    border: 1px solid #000000;
+    border-radius: 1rem;
+    padding: 1rem 2rem;
+}
+
 
 button {
     background-color: #FF7600;
     color: #000000;
-    border: 2px solid #000000;
+
+    box-shadow: 1px 1px 0.5rem #000000e0;
     margin: 2rem;
     padding: 1rem 2rem;
 }
 
 button:hover,
 button:focus {
-    background-color: hsl(28, 100%, 60%);
+    background-color: #F4E6E8;
+    color: #81003C;
+    border: 1px solid;
 }
 
 /* form styles */
@@ -90,22 +100,33 @@ label {
 
 input {
     background-color: #F4E6E8;
-    border: 2px solid #000000;
 }
 
-/* current backronym display styles*/
+/* current backronym/acrostic display styles*/
 
-.wordList,
+.wordDisplay,
 .savedBackronyms {
     background-color: #f4e6e8;
     color: #000000;
     box-shadow: 1px 1px 2rem #000000e0;
 }
 
-.wordList {
-    flex-basis: 40%;
+.wordDisplay {
+    flex-basis: 30%;
+    margin-top: 2rem;
+    /* height: 70%; */
 }
 
+.wordChoice {
+    display: block;
+    padding-top: 2rem;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.letterList p {
+    text-align: center;
+}
 
 .letterList p::first-letter {
     text-transform: uppercase;
@@ -114,23 +135,37 @@ input {
     font-weight: 700;
 }
 
-.wordDisplay {
+.wordList {
     display: flex;
 }
 
 .flexButtons {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    margin-top: 4rem;
 }
 
 .flexButtons button {
-    margin-left: 0;
+    margin: 0;
+    margin-top: 3rem;
+    margin-right: 3rem;
 }
 
 .flexAllTheBackronyms {
     display: flex;
+    /* height: 100vh; */
 }
 
+.restOfWord p {
+    margin: 0;
+    margin-top: 3rem;
+}
+
+.restOfWord,
+.savedBackronyms ul {
+    padding-left: 0;
+}
 
 /* saved backronyms styles */
 
@@ -138,8 +173,19 @@ input {
     padding: 2rem;
     margin: 2rem 0;
     margin-left: auto;
-    flex-basis: 30%;
+    flex-basis: 40%;
+    overflow: scroll;
 }
+
+.backronym {
+    display: flex;
+    justify-content: space-between;
+}
+
+.backronym p {
+    flex-basis: 70%;
+}
+
 
 /* footer styles */
 
@@ -162,7 +208,7 @@ footer a {
         flex-wrap: wrap;
     }
 
-    .wordList {
+    .wordDisplay {
         flex-basis: 100%;
     }
 
