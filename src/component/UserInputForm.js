@@ -12,9 +12,7 @@ const UserInputForm = ({ handleClick, handleReset, chosenWords }) => {
   }, [chosenWords]);
 
   const checkForCompleteBackronym = () => {
-    const userWordSpread = [...userWord];
-    console.log(userWordSpread);
-    if (chosenWords.length && userWordSpread.length == chosenWords.length) {
+    if (chosenWords.length && chosenWords.length == userWord.length) {
       saveNewBackronym();
     }
   }
@@ -25,7 +23,7 @@ const UserInputForm = ({ handleClick, handleReset, chosenWords }) => {
 
     const Backronym = {
       word: userWord,
-      backronym: chosenWords
+      backronym: chosenWords.join(' ')
     }
 
     dbRef.push(Backronym);
