@@ -78,10 +78,9 @@ function App() {
     // console.log('getRandomWord has been called/wordOptions:', wordOptions);
     const randomIndex = Math.floor(Math.random() * array.length);
     const randomWord = array[randomIndex];
-
-    if (randomWord.length > 1) {
-      setCurrentWord(randomWord);
-    }
+  
+ 
+    setCurrentWord(randomWord); 
     console.log('randomWord', randomWord);
   }
 
@@ -89,14 +88,14 @@ function App() {
   const saveWord = (word) => {
     setChosenWords([...chosenWords, word]);
   }
-  console.log(chosenWords);
+  // console.log('users chosen words so far', chosenWords);
 
 
   const changeLetters = () => {
     // when the button is clicked, move on to the next index number in the array of letters
       // while the index is less than the length of the array, move on to the next letter
     console.log("currentWord: ", currentWord);
-    console.log(index)
+    console.log('the index number is:', index)
 
     if ( index < letters.length ) {
       console.log('currentLetter', currentLetter);
@@ -121,8 +120,8 @@ function App() {
           })
           .then((firstWords) => {
             if (letters.length) {
-              const firstWordsArray = firstWords.map((word) => {
-                return word.word;
+              const firstWordsArray = firstWords.filter(wordObj => wordObj.word.length > 1).map((filteredWordObj) => {
+                  return filteredWordObj.word;
               })
 
               console.log("words corresponding to first letter", firstWordsArray)
@@ -132,6 +131,7 @@ function App() {
           })
     }, [letters])
 
+    // console.log('index', index)
 
   useEffect(
     () => {
@@ -141,15 +141,40 @@ function App() {
         return response.json()
       })
       .then((words) => {
-        if (wordOptions.length) {
-          const wordsArray = words.map((word) => {
-            return word.word;
+        // if the chosenWord state has length AND if there are more than 2 choices
+        if (chosenWords.length && words.length > 2) {
+          console.log('chosen words so far', chosenWords.length)
+          console.log(" there are ", words.length, "available words");
+          // console.log('wordOptions length', currentLetter, wordOptions.length)
+          const wordsArray = words.filter(wordObj => wordObj.word.length > 1).map((filteredWordObj) => {
+            return filteredWordObj.word;
           })
           console.log("words corresponding to next letter", wordsArray)
+
           setWordOptions(wordsArray);
           getRandomWord(wordsArray);
+          // if chosenWords state has length (so it only runs when we want it to) AND
+            // if the last API call retrieved less than 2 words
+        } else if (chosenWords.length && words.length < 2) {
+            console.log('third api call!')
+            
+            // https://api.datamuse.com/words?ml=${currentWord}&sp=${currentLetter}*&max=${numberOfAPIWords}
+          // 
+          fetch(`https://api.datamuse.com/sug?s=${currentLetter}&max=${numberOfAPIWords}`)
+                .then((response) => {
+                  return response.json()
+                })
+                .then((words) => {      
+                    const wordsArray = words.filter(wordObj => wordObj.word.length > 1).map((filteredWordObj) => {
+                      return filteredWordObj.word;
+                    })
+                    console.log("third api: related to last word", wordsArray)
+                    setWordOptions(wordsArray);
+                    getRandomWord(wordsArray);
+                })
         }
       })
+      
     }, [index]
   )
   
