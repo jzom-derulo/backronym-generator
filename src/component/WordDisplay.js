@@ -26,25 +26,26 @@ const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, cu
 
     return (
         <>
-            <div className="flexButtons">
-                <button className="userAccept" onClick={changeLetters} key="accept">Accept Word</button>
-                <button className="userReject" onClick={handleRejectChoice} key="reject">Change Word</button>
-            </div>
+            {/* <div className="flexButtons">
+                <button className="wordDisplayButton" onClick={changeLetters} key="accept">Accept Word</button>
+                <button className="wordDisplayButton" onClick={handleRejectChoice} key="reject">Change Word</button>
+            </div> */}
             <div className="wordDisplay">
-                <span className="wordChoice">
-
-
+                <div className="wordChoice">
 
                     {chosenWords.length === letterList.length && chosenWords.length > 0 ? "Backcronym completed!" :
 
-                        isLoading ? < BeatLoader color={"#81003C"} loading={isLoading} size={5} />
-                            
-                            :
-                            currentWord
-                            }
+                        isLoading 
+                            ? < BeatLoader color={"#81003C"} loading={isLoading} size={5} />
+                            : currentWord
+                    }
 
-                </span>
+                    <div className="flexButtons">
+                        <button className="wordDisplayButton" onClick={changeLetters} key="accept">Accept Word</button>
+                        <button className="wordDisplayButton" onClick={handleRejectChoice} key="reject">Change Word</button>
+                    </div>
 
+                </div>
 
                 <div className= "wordList">
                     <ul>

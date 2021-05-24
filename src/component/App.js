@@ -51,10 +51,7 @@ function App() {
   // holds the current backronym
   const [ chosenWords, setChosenWords ] = useState([])
 
-
-
   const [isLoading, setIsLoading] = useState(false)
-
 
   const [ backronyms, setBackronyms ] = useState([]);
 
@@ -232,21 +229,14 @@ function App() {
         {/* <button onClick={changeLetters}>change the letters</button> */}
 
         <div className="flexAllTheBackronyms">
-
-
           <WordDisplay wordOptions={wordOptions} letterList={letters} changeLetters={changeLetters} getRandomWord={getRandomWord} currentWord={currentWord} chosenWords={chosenWords} isLoading={isLoading} />
 
-
           <SavedBackronyms backronymList={backronyms} deleteBackronym={handleBackronymDelete} />
-
-
         </div>
 
       </div>
 
       <footer>Made at <a href="https://junocollege.com/" target="_blank" rel="noopener noreferrer">Juno College</a></footer>
-
-
     </>
   );
 }

@@ -74,10 +74,10 @@ input {
 button {
     background-color: #FF7600;
     color: #000000;
-
     box-shadow: 1px 1px 0.5rem #000000e0;
     margin: 2rem;
     padding: 1rem 2rem;
+    height: 4.5rem;
 }
 
 button:hover,
@@ -85,6 +85,12 @@ button:focus {
     background-color: #F4E6E8;
     color: #81003C;
     border: 1px solid;
+    cursor: pointer;
+}
+
+.wordDisplayButton {
+    width: 90%;
+    font-size: 2rem;
 }
 
 /* form styles */
@@ -100,6 +106,9 @@ label {
 
 input {
     background-color: #F4E6E8;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    height: 4.5rem;
 }
 
 /* current backronym/acrostic display styles*/
@@ -109,6 +118,7 @@ input {
     background-color: #f4e6e8;
     color: #000000;
     box-shadow: 1px 1px 2rem #000000e0;
+    border-radius: 2rem;
 }
 
 .wordDisplay {
@@ -119,9 +129,21 @@ input {
 
 .wordChoice {
     display: block;
-    padding-top: 2rem;
+    padding: 2rem 2rem;
+    font-family: 'Maitree', serif;
+}
+
+.wordChoice,
+.savedBackronyms h2 {
     text-align: center;
     text-transform: uppercase;
+    text-shadow: 3px 3px #FF7600;
+    font-size: 4rem;
+    font-weight: bold;
+    letter-spacing: 0.3rem;
+    border-bottom: 0;
+    border-radius: 2rem 2rem 0 0;
+    background: linear-gradient(to bottom, #FF7600, transparent);
 }
 
 .letterList p {
@@ -143,17 +165,17 @@ input {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 4rem;
+    margin-top: 2rem;
 }
 
 .flexButtons button {
     margin: 0;
-    margin-top: 3rem;
-    margin-right: 3rem;
+    margin-top: 2rem;
 }
 
 .flexAllTheBackronyms {
     display: flex;
+    justify-content: space-around;
     /* height: 100vh; */
 }
 
@@ -169,10 +191,10 @@ input {
 
 /* saved backronyms styles */
 
- .savedBackronyms {
+.savedBackronyms {
     padding: 2rem;
     margin: 2rem 0;
-    margin-left: auto;
+    /* margin-left: auto; */
     flex-basis: 40%;
     overflow: scroll;
 }
@@ -180,6 +202,10 @@ input {
 .backronym {
     display: flex;
     justify-content: space-between;
+    box-shadow: 2px 2px 10px black;
+    margin: 3rem 0;
+    padding-left: 1rem;
+    border-radius: 1rem;
 }
 
 .backronym p {
@@ -194,7 +220,7 @@ footer {
     color: #81003C;
     padding: 2rem;
     text-align: center;
-    margin-top: auto;
+    margin-top: 5rem;
 }
 
 footer a {
@@ -216,9 +242,9 @@ footer a {
         flex-basis: 100%;
     }
 
-    .flexButtons {
+    /* .flexButtons {
         flex-direction: row;
-    }
+    } */
 }
 
 @media (max-width: 575px) {
