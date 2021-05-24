@@ -8,7 +8,7 @@ const UserInputForm = ({ handleClick, handleReset, chosenWords }) => {
 
   useEffect(() => {
     checkForCompleteBackronym();
-    console.log('checkForCompleteBackronym called!');
+    // console.log('checkForCompleteBackronym called!');
   }, [chosenWords]);
 
   const checkForCompleteBackronym = () => {
