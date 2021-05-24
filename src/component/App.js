@@ -65,8 +65,13 @@ function App() {
     setChosenWords([]);
   }
 
-  const handleReset = () => {
+  const handleReset = (event) => {
+    event.preventDefault();
+    // add 
+    setChosenWords([]);
     setLetters([]);
+    setCurrentWord('');
+  //  console.log(userWord);
   }
 
   const getRandomWord = (array) => {
@@ -154,7 +159,7 @@ function App() {
       <div className="wrapper">
 
         <h1>Backcronym Generator</h1>
-        <UserInputForm handleClick={handleClick} chosenWords={chosenWords}/>
+        <UserInputForm handleClick={handleClick} chosenWords={chosenWords} handleReset={handleReset}/>
         
         {/* <button onClick={changeLetters}>change the letters</button> */}
 
