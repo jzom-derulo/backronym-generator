@@ -41,15 +41,44 @@ function App() {
   // where the userWord letters are stored 
   const [letters, setLetters] = useState([]);
   // to hold which letter is currently in state
-  const [currentLetter, setCurrentLetter] = useState('')
-  //  words corresponding to the current letter
-  const [wordOptions, setWordOptions] = useState([]);
-  // holds the current word the user can see
-  const [currentWord, setCurrentWord] = useState("")
 
-  const [chosenWords, setChosenWords] = useState([])
+  const [ currentLetter, setCurrentLetter ] = useState('')
+  // words corresponding to the current letter
+  const [ wordOptions, setWordOptions ] = useState([]);
+
+  // holds the current word the user can see
+  const [ currentWord, setCurrentWord ] = useState("")
+  // holds the current backronym
+  const [ chosenWords, setChosenWords ] = useState([])
+
+
 
   const [isLoading, setIsLoading] = useState(false)
+
+
+  const [ backronyms, setBackronyms ] = useState([]);
+
+  useEffect(() => {
+    const dbRef = firebase.database().ref();
+
+    dbRef.on('value', (response) => {
+      const newDataArray = []
+      const data = response.val();
+
+      for (let key in data) {
+        newDataArray.push({ key: key, word: data[key].word, backronym: data[key].backronym });
+      }
+
+      setBackronyms(newDataArray);
+    });
+
+  }, []);
+
+  const handleBackronymDelete = (backronym) => {
+    const dbRef = firebase.database().ref();
+    dbRef.child(backronym.key).remove();
+  };
+  
 
   // placeholders for APIs
   const numberOfAPIWords = 20;
@@ -148,6 +177,7 @@ function App() {
       setIsLoading(true);
       // right now previousWord is hard coded, we gotta swap that for whatever word the user chose last
       fetch(`https://api.datamuse.com/words?lc=${currentWord}&sp=${currentLetter}*&max=${numberOfAPIWords}`)
+
         .then((response) => {
           return response.json()
         })
@@ -167,6 +197,8 @@ function App() {
   )
 
 
+
+
   return (
     <>
       <div className="wrapper">
@@ -178,9 +210,12 @@ function App() {
 
         <div className="flexAllTheBackronyms">
 
+
           <WordDisplay wordOptions={wordOptions} letterList={letters} changeLetters={changeLetters} getRandomWord={getRandomWord} currentWord={currentWord} chosenWords={chosenWords} isLoading={isLoading} />
 
-          <SavedBackronyms />
+
+          <SavedBackronyms backronymList={backronyms} deleteBackronym={handleBackronymDelete} />
+
 
         </div>
 
