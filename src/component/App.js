@@ -40,12 +40,35 @@ function App() {
   const [ letters, setLetters ] = useState([]);
   // to hold which letter is currently in state
   const [ currentLetter, setCurrentLetter ] = useState('')
-  //  words corresponding to the current letter
+  // words corresponding to the current letter
   const [ wordOptions, setWordOptions ] = useState([]);
   // holds the current word the user can see
-  const [currentWord, setCurrentWord] = useState("")
+  const [ currentWord, setCurrentWord ] = useState("")
+  // holds the current backronym
+  const [ chosenWords, setChosenWords ] = useState([])
 
-  const [chosenWords, setChosenWords] = useState([])
+  const [ backronyms, setBackronyms ] = useState([]);
+
+  useEffect(() => {
+    const dbRef = firebase.database().ref();
+
+    dbRef.on('value', (response) => {
+      const newDataArray = []
+      const data = response.val();
+
+      for (let key in data) {
+        newDataArray.push({ key: key, word: data[key].word, backronym: data[key].backronym });
+      }
+
+      setBackronyms(newDataArray);
+    });
+
+  }, []);
+
+  const handleBackronymDelete = (backronym) => {
+    const dbRef = firebase.database().ref();
+    dbRef.child(backronym.key).remove();
+  };
   
   // placeholders for APIs
   const numberOfAPIWords = 20;
@@ -150,8 +173,7 @@ function App() {
           getRandomWord(wordsArray);
         }
       })
-    }, [index]
-  )
+    }, [index])
   
 
   return (
@@ -165,9 +187,9 @@ function App() {
 
         <div className="flexAllTheBackronyms">
           
-         <WordDisplay wordOptions={wordOptions} letterList={letters} changeLetters={changeLetters} getRandomWord={getRandomWord} currentWord={currentWord} chosenWords={chosenWords}/>
+          <WordDisplay wordOptions={wordOptions} letterList={letters} changeLetters={changeLetters} getRandomWord={getRandomWord} currentWord={currentWord} chosenWords={chosenWords}/>
 
-          <SavedBackronyms/>
+          <SavedBackronyms backronymList={backronyms} deleteBackronym={handleBackronymDelete} />
 
         </div>
 
