@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
+import BeatLoader from "react-spinners/BeatLoader";
 
-const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, currentWord, chosenWords }) => {
+const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, currentWord, chosenWords, isLoading }) => {
 
     // holds whether the user chose yes or no to wordOption given
     // const [userChoiceStatus, setUserChoiceStatus] = useState(false);
@@ -19,7 +20,7 @@ const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, cu
     }
 
     const splitFirstLetter = (word) => {
-        return word.substring(1);      
+        return word.substring(1);
     }
     // splitFirstLetter("dog");
 
@@ -32,11 +33,19 @@ const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, cu
             <ul className="wordList">
                 <span>
 
-                    {chosenWords.length === letterList.length && chosenWords.length > 0 ? "Backcronym completed!" : currentWord }
+
+
+                    {chosenWords.length === letterList.length && chosenWords.length > 0 ? "Backcronym completed!" :
+
+                        isLoading ? < BeatLoader color={"#81003C"} loading={isLoading} size={5} />
+                            
+                            :
+                            currentWord
+                            }
 
                 </span>
 
-                <div className= "wordDisplay">
+                <div className="wordDisplay">
                     <div>
                         {
                             letterList.map((letter, index) => {
