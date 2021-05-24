@@ -41,6 +41,10 @@ const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, cu
 
     return (
         <>
+            <div className="flexButtons">
+                <button className="userAccept" onClick={changeLetters} key="accept">Accept</button>
+                <button className="userReject" onClick={handleRejectChoice} key="reject">Reject</button>
+            </div>
             <ul className="wordList">
                 {
                     letterList.map((letter, index) => {
@@ -66,8 +70,6 @@ const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, cu
 
             </ul>
 
-            <button className="userAccept" onClick={changeLetters} key="accept">Accept</button>
-            <button className="userReject" onClick={handleRejectChoice} key="reject">Reject</button>
         </>
     )
 }

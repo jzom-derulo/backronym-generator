@@ -5,7 +5,7 @@ const SavedBackronyms = () => {
     ]
 
     return (
-        <section>
+        <section className="savedBackronyms">
             <h2>Completed Backronyms</h2>
 
             <ul>
