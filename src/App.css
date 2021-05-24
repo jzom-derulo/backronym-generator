@@ -107,11 +107,15 @@ input {
 }
 
 
-.wordList p::first-letter {
+.letterList p::first-letter {
     text-transform: uppercase;
     color: #81003C;
     font-size: 3rem;
     font-weight: 700;
+}
+
+.wordDisplay {
+    display: flex;
 }
 
 .flexButtons {

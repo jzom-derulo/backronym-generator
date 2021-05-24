@@ -35,48 +35,45 @@ const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, cu
             <ul className="wordList">
                 <span>
 
-                    {currentWord}
+                    {chosenWords.length === letterList.length && chosenWords.length > 0 ? "Backcronym completed!" : currentWord }
 
                 </span>
 
-                {
+                <div className= "wordDisplay">
+                    <div>
+                        {
+                            letterList.map((letter, index) => {
+
+                                // { console.log('letter', letter) }
+                                return (
+                                    <li key={index} className="letterList">
+                                        <p>
+                                            {letter}
+                                        </p>
+                                    </li>
+                                )
+                            })
+
+
+                        }
+                    </div>
+
+                    <div>
+                        {
+                            chosenWords.map((word) => {
+                                return (
+                                    <li>
+                                        {/* <p>{word}</p> */}
+
+                                        <p>{splitFirstLetter(word)}</p>
+                                    </li>
+                                )
+
+                            })
+                        }
+                    </div>
                     
-                    
-                    letterList.map((letter, index) => {
-                        
-
-                        // { console.log('letter', letter) }
-                        return (
-                            <div>
-                                
-
-                                <li key={index}>
-
-                                    <p>
-                                        {letter}
-
-                                    </p>
-
-                                    
-                                </li>
-                            </div>
-                        )
-                    })
-
-                    
-                }
-                {
-                    chosenWords.map((word) => {
-                        return(
-                            <li>
-                                {/* <p>{word}</p> */}
-                                
-                                <p>{splitFirstLetter(word)}</p>
-                            </li>
-                        )
-                        
-                    })
-                }
+                </div>
 
             </ul>
 

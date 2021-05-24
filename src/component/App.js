@@ -62,7 +62,7 @@ function App() {
     // setFirstLetter(userLetters[0]);
     setLetters(userLetters);
     setCurrentLetter(userLetters[0]);
-    setIndex(1); 
+    setIndex(0); 
 
     setChosenWords([]);
   }
@@ -76,7 +76,9 @@ function App() {
     const randomIndex = Math.floor(Math.random() * array.length);
     const randomWord = array[randomIndex];
 
-    setCurrentWord(randomWord);
+    if (randomWord.length > 1) {
+      setCurrentWord(randomWord);
+    }
     console.log('randomWord', randomWord);
   }
 
@@ -91,13 +93,21 @@ function App() {
     // when the button is clicked, move on to the next index number in the array of letters
       // while the index is less than the length of the array, move on to the next letter
     console.log("currentWord: ", currentWord);
-    saveWord(currentWord);
+    console.log(index)
+    
+    
 
-    if ( index < letters.length) {
+    if ( index < letters.length ) {
+      console.log('currentLetter', currentLetter);
+      saveWord(currentWord);
       setIndex(index + 1)
-      const nextLetter = letters[index];
-      setCurrentLetter(nextLetter);
-      console.log('nextLetter', nextLetter);    
+
+      if (index < letters.length - 1) {
+
+        const nextLetter = letters[index+1];
+        setCurrentLetter(nextLetter);
+        console.log('nextLetter', nextLetter);    
+      } 
     }
   }
   
