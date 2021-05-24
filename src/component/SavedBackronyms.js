@@ -1,8 +1,4 @@
-const SavedBackronyms = () => {
-    // { finishedBackronyms }
-    const finishedBackronyms = [
-        "cat: controlling and testy", "print: people really into new things", "test: toaster eats so tasty"
-    ]
+const SavedBackronyms = ({ backronymList, deleteBackronym }) => {
 
     return (
         <section className="savedBackronyms">
@@ -10,11 +6,14 @@ const SavedBackronyms = () => {
 
             <ul>
                 {
-                    finishedBackronyms.map((backronym) => {
-                        return <li>
-                            {backronym}
+                    backronymList.map((backronym) => {
+                        return (
+                            <li key={backronym.key}>
+                                <button onClick={() => deleteBackronym(backronym)}>Delete</button>
 
-                        </li>
+                                <p>{backronym.word}: {backronym.backronym}</p>
+                            </li>
+                        )
                     })
                 }
             </ul>
