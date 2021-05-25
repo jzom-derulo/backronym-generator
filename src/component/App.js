@@ -55,7 +55,10 @@ function App() {
 
   const [ backronyms, setBackronyms ] = useState([]);
 
+  const [ inputError, setInputError ] = useState(false);
+
   useEffect(() => {
+    setIsLoading(true);
     const dbRef = firebase.database().ref();
 
     dbRef.on('value', (response) => {
@@ -67,6 +70,8 @@ function App() {
       }
 
       setBackronyms(newDataArray);
+
+       setIsLoading(false);
     });
 
   }, []);
@@ -84,20 +89,34 @@ function App() {
   const handleClick = (userWord) => (event) => {
     event.preventDefault();
     // split word into individual letters
-    // console.log(userWord);
-    const userLetters = [...userWord];
-    console.log('userLetters:', userLetters);
-    // setFirstLetter(userLetters[0]);
-    setLetters(userLetters);
-    setCurrentLetter(userLetters[0]);
-    setIndex(0);
+    console.log(userWord);
 
-    setChosenWords([]);
+    
+    //define regular expressions
+    let re = /^([a-z]+)$/i;    
+    console.log(re.test(userWord));
+
+    if (re.test(userWord)) {
+      setInputError(false);
+      const userLetters = [...userWord];
+      console.log('userLetters:', userLetters);
+      // setFirstLetter(userLetters[0]);
+      setLetters(userLetters);
+      setCurrentLetter(userLetters[0]);
+      setIndex(0);
+  
+      setChosenWords([]);
+    } else {
+      console.log("please enter letters only")
+      setInputError(true);
+    }
+
+
   }
 
   const handleReset = (event) => {
+
     event.preventDefault();
-    // add 
     setChosenWords([]);
     setLetters([]);
     setCurrentWord('');
@@ -145,22 +164,20 @@ function App() {
     () => {
       setIsLoading(true);
       fetch(`https://api.datamuse.com/sug?s=${letters[0]}&max=${numberOfAPIWords}`)
-        .then((response) => {
+        .then((response) => {       
           return response.json()
         })
         .then((firstWords) => {
-
+        
           if (letters.length) {
            const firstWordsArray = firstWords.filter(wordObj => wordObj.word.length > 1).map((filteredWordObj) => {
                 return filteredWordObj.word;
             })
-            setIsLoading(false);
-
             console.log("words corresponding to first letter", firstWordsArray)
             setWordOptions(firstWordsArray);
             getRandomWord(firstWordsArray);
-
           }
+          setIsLoading(false);
         })
     }, [letters])
 
@@ -209,9 +226,6 @@ function App() {
         }
           setIsLoading(false);
       })
-      
-
-
 
     }, [index]
   )
@@ -224,14 +238,14 @@ function App() {
       <div className="wrapper">
 
         <h1>Backcronym Generator</h1>
-        <UserInputForm handleClick={handleClick} chosenWords={chosenWords} handleReset={handleReset} />
+        <UserInputForm handleClick={handleClick} chosenWords={chosenWords} handleReset={handleReset} inputError={inputError}/>
 
         {/* <button onClick={changeLetters}>change the letters</button> */}
 
         <div className="flexAllTheBackronyms">
           <WordDisplay wordOptions={wordOptions} letterList={letters} changeLetters={changeLetters} getRandomWord={getRandomWord} currentWord={currentWord} chosenWords={chosenWords} isLoading={isLoading} />
 
-          <SavedBackronyms backronymList={backronyms} deleteBackronym={handleBackronymDelete} />
+          <SavedBackronyms backronymList={backronyms} deleteBackronym={handleBackronymDelete} isLoading={isLoading}/>
         </div>
 
       </div>

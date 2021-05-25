@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+
 import BeatLoader from "react-spinners/BeatLoader";
 
 const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, currentWord, chosenWords, isLoading }) => {
@@ -22,14 +22,9 @@ const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, cu
     const splitFirstLetter = (word) => {
         return word.substring(1);
     }
-    // splitFirstLetter("dog");
 
     return (
         <>
-            {/* <div className="flexButtons">
-                <button className="wordDisplayButton" onClick={changeLetters} key="accept">Accept Word</button>
-                <button className="wordDisplayButton" onClick={handleRejectChoice} key="reject">Change Word</button>
-            </div> */}
             <div className="wordDisplay">
                 <div className="wordChoice">
 

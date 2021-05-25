@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import firebase from '../config/firebase.js';
 
-const UserInputForm = ({ handleClick, handleReset, chosenWords }) => {
+const UserInputForm = ({ handleClick, handleReset, chosenWords, inputError }) => {
   const [userWord, setUserWord] = useState('');
 
   // const [newBackronym, setNewBackronym] = useState('');
@@ -34,7 +34,14 @@ const UserInputForm = ({ handleClick, handleReset, chosenWords }) => {
   return (
     <form action="submit">
       <label htmlFor="userInput">Type in a word</label>
-      <input type="text" value={userWord} id="userInput" onChange={(event) => setUserWord(event.target.value)} required />
+      
+        <input type="text" value={userWord} id="userInput" onChange={(event) => setUserWord(event.target.value)} required />
+
+        {inputError
+          ? <span className="errorMessage">Please input letters ONLY!</span>
+          : ""}
+
+
       <button className="generateButton" onClick={handleClick(userWord)}>Generate!</button>
       <button onClick={handleReset}>Reset Generator</button>
       {/* <i className="fas fa-undo-alt"></i> */}
