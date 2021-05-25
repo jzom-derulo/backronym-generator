@@ -22,7 +22,7 @@ const SavedBackronyms = ({ backronymList, deleteBackronym, isLoading }) => {
                             return (
                                 <li className="backronym" key={backronym.key}>
 
-                                    <p>{backronym.word}: {backronym.backronym}</p>
+                                <p><span>{backronym.word}:</span> {backronym.backronym}</p>
 
                                     <button onClick={() => deleteBackronym(backronym)}>Delete</button>
 
