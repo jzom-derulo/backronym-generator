@@ -1,19 +1,20 @@
 import { useState, useEffect } from "react";
 import firebase from '../config/firebase.js';
 
-const UserInputForm = ({ handleClick, handleReset, chosenWords, inputError }) => {
+const UserInputForm = ({ handleClick, handleReset, chosenWords, inputError, userWordDeconstructed }) => {
   const [userWord, setUserWord] = useState('');
 
   // const [newBackronym, setNewBackronym] = useState('');
 
   useEffect(() => {
     checkForCompleteBackronym();
-
+    setUserWord('');
     // console.log('checkForCompleteBackronym called!');
   }, [chosenWords]);
 
   const checkForCompleteBackronym = () => {
-    if (chosenWords.length && chosenWords.length === userWord.length) {
+
+    if (chosenWords.length && chosenWords.length === userWordDeconstructed.length) {
       saveNewBackronym();
     }
   }
@@ -23,7 +24,7 @@ const UserInputForm = ({ handleClick, handleReset, chosenWords, inputError }) =>
     console.log('saveNewBackronym called!');
 
     const Backronym = {
-      word: userWord,
+      word: userWordDeconstructed.join(''),
       backronym: chosenWords.join(' ')
     }
 

@@ -240,7 +240,7 @@ function App() {
       <div className="wrapper">
 
         <h1>Backcronym Generator</h1>
-        <UserInputForm handleClick={handleClick} chosenWords={chosenWords} handleReset={handleReset} inputError={inputError}/>
+        <UserInputForm handleClick={handleClick} chosenWords={chosenWords} handleReset={handleReset} inputError={inputError} userWordDeconstructed={letters} />
 
         {/* <button onClick={changeLetters}>change the letters</button> */}
 
