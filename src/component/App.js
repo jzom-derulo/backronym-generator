@@ -57,8 +57,10 @@ function App() {
 
   const [ inputError, setInputError ] = useState(false);
 
+  const [firebaseLoading, setFirebaseLoading] = useState(false)
+
   useEffect(() => {
-    setIsLoading(true);
+    setFirebaseLoading(true);
     const dbRef = firebase.database().ref();
 
     dbRef.on('value', (response) => {
@@ -71,7 +73,7 @@ function App() {
 
       setBackronyms(newDataArray);
 
-       setIsLoading(false);
+      setFirebaseLoading(false);
     });
 
   }, []);
@@ -206,7 +208,7 @@ function App() {
           getRandomWord(wordsArray);
           // if chosenWords state has length (so it only runs when we want it to) AND
             // if the last API call retrieved less than 2 words
-        } else if (chosenWords.length && words.length < 2) {
+        } else if (chosenWords.length && words.length <= 2) {
             console.log('third api call!')
             
             // https://api.datamuse.com/words?ml=${currentWord}&sp=${currentLetter}*&max=${numberOfAPIWords}
@@ -245,7 +247,7 @@ function App() {
         <div className="flexAllTheBackronyms">
           <WordDisplay wordOptions={wordOptions} letterList={letters} changeLetters={changeLetters} getRandomWord={getRandomWord} currentWord={currentWord} chosenWords={chosenWords} isLoading={isLoading} />
 
-          <SavedBackronyms backronymList={backronyms} deleteBackronym={handleBackronymDelete} isLoading={isLoading}/>
+          <SavedBackronyms backronymList={backronyms} deleteBackronym={handleBackronymDelete} firebaseLoading={firebaseLoading}/>
         </div>
 
       </div>

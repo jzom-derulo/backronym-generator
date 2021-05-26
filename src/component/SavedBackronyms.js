@@ -1,6 +1,6 @@
 import BeatLoader from "react-spinners/BeatLoader";
 import { css } from "@emotion/react";
-const SavedBackronyms = ({ backronymList, deleteBackronym, isLoading }) => {
+const SavedBackronyms = ({ backronymList, deleteBackronym, firebaseLoading }) => {
 
     //styleing for BeatLoader
     const override = css`
@@ -13,8 +13,8 @@ const SavedBackronyms = ({ backronymList, deleteBackronym, isLoading }) => {
         <section className="savedBackronyms">
             <h2>Completed Backronyms</h2>
 
-            {isLoading
-                ? < BeatLoader color={"#81003C"} loading={isLoading} size={10} css={override} />
+            {firebaseLoading
+                ? < BeatLoader color={"#81003C"} loading={firebaseLoading} size={10} css={override} />
                 :
                 <ul>
                     {

@@ -8,6 +8,7 @@ const UserInputForm = ({ handleClick, handleReset, chosenWords, inputError }) =>
 
   useEffect(() => {
     checkForCompleteBackronym();
+
     // console.log('checkForCompleteBackronym called!');
   }, [chosenWords]);
 
@@ -35,7 +36,7 @@ const UserInputForm = ({ handleClick, handleReset, chosenWords, inputError }) =>
     <form action="submit">
       <label htmlFor="userInput">Type in a word</label>
       
-        <input type="text" value={userWord} id="userInput" onChange={(event) => setUserWord(event.target.value)} required />
+      <input type="text" value={userWord} id="userInput" onChange={(event) => setUserWord(event.target.value)} required />
 
         {inputError
           ? <span className="errorMessage">Please input letters ONLY!</span>
@@ -43,7 +44,8 @@ const UserInputForm = ({ handleClick, handleReset, chosenWords, inputError }) =>
 
 
       <button className="generateButton" onClick={handleClick(userWord)}>Generate!</button>
-      <button onClick={handleReset}>Reset Generator</button>
+      <button onClick={handleReset} >Reset Generator</button>
+      
       {/* <i className="fas fa-undo-alt"></i> */}
     </form>
   )
