@@ -68,7 +68,7 @@ function App() {
       const data = response.val();
 
       for (let key in data) {
-        newDataArray.push({ key: key, word: data[key].word, backronym: data[key].backronym });
+        newDataArray.unshift({ key: key, word: data[key].word, backronym: data[key].backronym });
       }
 
       setBackronyms(newDataArray);
