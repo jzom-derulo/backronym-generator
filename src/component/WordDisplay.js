@@ -23,6 +23,8 @@ const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, cu
         return word.substring(1);
     }
 
+
+
     return (
         <>
             <div className="wordDisplay">
@@ -30,19 +32,32 @@ const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, cu
 
                     {chosenWords.length === letterList.length && chosenWords.length > 0 ? "Backcronym completed!" :
 
-                        isLoading 
+                        isLoading
                             ? < BeatLoader color={"#81003C"} loading={isLoading} size={5} />
                             : currentWord
                     }
-
-                    <div className="flexButtons">
-                        <button className="wordDisplayButton" onClick={changeLetters} key="accept">Accept Word</button>
-                        <button className="wordDisplayButton" onClick={handleRejectChoice} key="reject">Change Word</button>
-                    </div>
-
+                    {chosenWords.length === letterList.length && chosenWords.length > 0
+                        ? ""
+                        :
+                        letterList.length
+                            ?
+                                <div className="flexButtons">
+                                    <button
+                                        className="wordDisplayButton"
+                                        onClick={changeLetters} key="accept"
+                                        disabled={
+                                            isLoading
+                                                ? true
+                                                : false
+                                        }>Accept Word
+                                </button>
+                                    <button className="wordDisplayButton" onClick={handleRejectChoice} key="reject">Change Word</button>
+                                </div>
+                            :""
+                    }
                 </div>
 
-                <div className= "wordList">
+                <div className="wordList">
                     <ul>
                         {
                             letterList.map((letter, index) => {

@@ -13,7 +13,7 @@ const UserInputForm = ({ handleClick, handleReset, chosenWords, inputError }) =>
   }, [chosenWords]);
 
   const checkForCompleteBackronym = () => {
-    if (chosenWords.length && chosenWords.length == userWord.length) {
+    if (chosenWords.length && chosenWords.length === userWord.length) {
       saveNewBackronym();
     }
   }
