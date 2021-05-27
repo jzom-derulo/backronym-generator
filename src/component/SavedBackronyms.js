@@ -1,8 +1,7 @@
 import BeatLoader from "react-spinners/BeatLoader";
 import { css } from "@emotion/react";
 const SavedBackronyms = ({ backronymList, deleteBackronym, firebaseLoading }) => {
-
-    //styleing for BeatLoader
+    //styling for BeatLoader
     const override = css`
     display: block;
     text-align: center;
@@ -15,24 +14,19 @@ const SavedBackronyms = ({ backronymList, deleteBackronym, firebaseLoading }) =>
 
             {firebaseLoading
                 ? < BeatLoader color={"#81003C"} loading={firebaseLoading} size={10} css={override} />
-                :
-                <ul>
-                    {
-                        backronymList.map((backronym) => {
-                            return (
-                                <li className="backronym" key={backronym.key}>
-
-                                    <p><span>{backronym.word}:</span> {backronym.backronym}</p>
-
-                                    <button onClick={() => deleteBackronym(backronym)}>Delete</button>
-
-                                </li>
-                            )
-                        })
-                    }
-                </ul>
+                :   <ul>
+                        {
+                            backronymList.map((backronym) => {
+                                return (
+                                    <li className="backronym" key={backronym.key}>
+                                        <p><span>{backronym.word}:</span> {backronym.backronym}</p>
+                                        <button onClick={() => deleteBackronym(backronym)}>Delete</button>
+                                    </li>
+                                )
+                            })
+                        }
+                    </ul>
             }
-
         </section>
     )
 }

@@ -1,31 +1,18 @@
+//import BeatLoader to be used for loading state
 import BeatLoader from "react-spinners/BeatLoader";
+//import component
 import BackcronymDefinition from "./BackronymDefinition.js";
 
 const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, currentWord, chosenWords, isLoading }) => {
-
-    // holds whether the user chose yes or no to wordOption given
-    // const [userChoiceStatus, setUserChoiceStatus] = useState(false);
-    // will hold the words the user choooses
-
-
-    // console.log('wordOptions', wordOptions);
-    // console.log('letterList', letterList);
-
-    //MUST FIGURE OUT WHERE TO CALL/DEFINE THIS FUNCTION TO CONNECT IT WITH GENERATE 
-
-
+    //define function get a random word from given array
     const handleRejectChoice = () => {
-        // setUserChoiceStatus(false);
         getRandomWord(wordOptions);
     }
-
+    //define function to return a string of which first letter has been removed
     const splitFirstLetter = (word) => {
         return word.substring(1);
     }
-
-
     return (
-
             <section className="wordDisplay">
                 <div className="wordChoice">
 
@@ -34,15 +21,20 @@ const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, cu
                         : isLoading 
                                 ? < BeatLoader color={"#81003C"} loading={isLoading} size={10} />                
                                 : <h2>{currentWord}</h2>
+
                     }
                     {chosenWords.length === letterList.length && chosenWords.length > 0
                         ? ""
                         : letterList.length
+
                             ? <div className="flexButtons">
+
                                     <button
                                         className="wordDisplayButton"
-                                        onClick={changeLetters} key="accept"
+                                        onClick={changeLetters} 
+                                        key="accept"
                                         disabled={
+                                            // disable button when geting data from API 
                                             isLoading
                                                 ? true
                                                 : false
@@ -53,19 +45,17 @@ const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, cu
                             : <BackcronymDefinition />
                     }
                 </div>
-
+                     
                 {letterList.length ? 
+
                 <div className="wordList">
                     <ul className="firstLetterList">
                         {
+                            // map through the letterList array to list each letter as a list
                             letterList.map((letter, index) => {
-
-                                // { console.log('letter', letter) }
                                 return (
                                     <li key={index} className="letterList">
-                                        <p>
-                                            {letter}
-                                        </p>
+                                        <p>{letter}</p>
                                     </li>
                                 )
                             })
@@ -74,6 +64,7 @@ const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, cu
 
                     <ul className="restOfWord">
                         {
+                            //map through the  chosenWords array to list each splitted word as a list 
                             chosenWords.map((word, index) => {
                                 return (
                                     <li key={index}>
@@ -87,5 +78,4 @@ const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, cu
             </section> 
     )
 }
-
 export default WordDisplay;
