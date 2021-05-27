@@ -147,7 +147,11 @@ input {
     text-align: center;
 }
 
- h2 {
+.wordChoice p {
+    font-family: 'Montserrat', sans-serif;
+}
+
+h2 {
     font-size: calc(2rem + 2vw);
     text-align: center;
     text-transform: uppercase;
