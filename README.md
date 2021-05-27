@@ -17,5 +17,5 @@ or as a fanciful explanation of a word’s origin.
 * The saved backcronyms can be deleted from the databased if user clicks the "delete" button. 
 
 ## Resources  
-* [Datamuse API] (http://www.datamuse.com/api/), a word-finding query engine for developers.
+* Datamuse API (http://www.datamuse.com/api/), a word-finding query engine for developers.
 
