@@ -167,12 +167,12 @@ function App() {
 
           const wordListToSave = [...chosenWords, currentWord];
 
-          const Backronym = {
+          const backronym = {
             word: letters.join(''),
             backronym: wordListToSave.join(' ')
           }
 
-          dbRef.push(Backronym);
+          dbRef.push(backronym);
           //clear user input
           setUserWord('');
         
