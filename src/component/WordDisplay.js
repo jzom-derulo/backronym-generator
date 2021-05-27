@@ -25,25 +25,20 @@ const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, cu
 
 
     return (
-        <>
-            <div className="wordDisplay">
+
+            <section className="wordDisplay">
                 <div className="wordChoice">
 
-                    {chosenWords.length === letterList.length && chosenWords.length > 0 ? <h2>Backcronym completed!</h2> :
-
-                        isLoading
-
-                            ? < BeatLoader color={"#81003C"} loading={isLoading} size={10} />
-                        
-                            : <h2>{currentWord}</h2>
-
+                    {chosenWords.length === letterList.length && chosenWords.length > 0 
+                        ? <h2>Backcronym completed!</h2> 
+                        : isLoading 
+                                ? < BeatLoader color={"#81003C"} loading={isLoading} size={10} />                
+                                : <h2>{currentWord}</h2>
                     }
                     {chosenWords.length === letterList.length && chosenWords.length > 0
                         ? ""
-                        :
-                        letterList.length
-                            ?
-                                <div className="flexButtons">
+                        : letterList.length
+                            ? <div className="flexButtons">
                                     <button
                                         className="wordDisplayButton"
                                         onClick={changeLetters} key="accept"
@@ -52,13 +47,14 @@ const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, cu
                                                 ? true
                                                 : false
                                         }>Accept Word
-                                </button>
+                                    </button>
                                     <button className="wordDisplayButton" onClick={handleRejectChoice} key="reject">Change Word</button>
                                 </div>
                             : <BackcronymDefinition />
                     }
                 </div>
 
+                {letterList.length ? 
                 <div className="wordList">
                     <ul className="firstLetterList">
                         {
@@ -81,16 +77,14 @@ const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, cu
                             chosenWords.map((word, index) => {
                                 return (
                                     <li key={index}>
-                                        {/* <p>{word}</p> */}
                                         <p>{splitFirstLetter(word)}</p>
                                     </li>
                                 )
                             })
                         }
-                    </ul> {/* restOfWord */}
-                </div> {/* wordList */}
-            </div> {/* wordDisplay */}
-        </>
+                    </ul> 
+                </div>  : "" }
+            </section> 
     )
 }
 

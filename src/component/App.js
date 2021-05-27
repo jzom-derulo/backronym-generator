@@ -62,6 +62,7 @@ function App() {
 
   const [firebaseLoading, setFirebaseLoading] = useState(false)
 
+
   useEffect(() => {
     setFirebaseLoading(true);
     const dbRef = firebase.database().ref();
@@ -85,11 +86,6 @@ function App() {
     const dbRef = firebase.database().ref();
     dbRef.child(backronym.key).remove();
   };
-  
-
-  // placeholders for APIs
-  const numberOfAPIWords = 20;
-  // const previousWord = 'world';
 
   const handleInput = (event) => {
     setUserWord(event.target.value);
@@ -184,6 +180,7 @@ function App() {
     }
   }
 
+  const numberOfAPIWords = 30;
   useEffect(
 
     () => {
@@ -218,7 +215,7 @@ function App() {
       })
       .then((words) => {
         // if the chosenWord state has length AND if there are more than 2 choices
-        if (chosenWords.length && words.length > 2) {
+        if (chosenWords.length && words.length > 5) {
           console.log('chosen words so far', chosenWords.length)
           console.log(" there are ", words.length, "available words");
           // console.log('wordOptions length', currentLetter, wordOptions.length)
@@ -231,7 +228,7 @@ function App() {
           getRandomWord(wordsArray);
           // if chosenWords state has length (so it only runs when we want it to) AND
             // if the last API call retrieved less than 2 words
-        } else if (chosenWords.length && words.length <= 2) {
+        } else if (chosenWords.length && words.length <= 5) {
             console.log('third api call!')
             
             // https://api.datamuse.com/words?ml=${currentWord}&sp=${currentLetter}*&max=${numberOfAPIWords}
@@ -261,8 +258,6 @@ function App() {
 
         <h1>Backcronym Generator</h1>
         <UserInputForm userWord={userWord} handleInput={handleInput} handleClick={handleClick} handleReset={handleReset} inputError={inputError}  />
-
-        {/* <button onClick={changeLetters}>change the letters</button> */}
 
         <div className="flexAllTheBackronyms">
           <WordDisplay wordOptions={wordOptions} letterList={letters} changeLetters={changeLetters} getRandomWord={getRandomWord} currentWord={currentWord} chosenWords={chosenWords} isLoading={isLoading} />
