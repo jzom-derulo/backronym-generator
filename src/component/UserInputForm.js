@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 
 const UserInputForm = ({ userWord, handleInput, handleClick, handleReset, inputError }) => {
   
