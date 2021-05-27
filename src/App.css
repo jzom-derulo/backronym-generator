@@ -56,6 +56,14 @@ ul {
     list-style-type: none;
 }
 
+.restOfWord p {
+    line-height: 20px;
+}
+
+.firstLetterList p {
+    line-height: 27px;
+}
+
 button,
 input {
     border: 1px solid #000000;
@@ -95,8 +103,8 @@ form {
 }
 
 label {
-    margin: 1rem;
-    margin-left: 0;
+    margin: 1rem 0;
+    text-align: left;
 }
 
 input {
@@ -104,7 +112,18 @@ input {
     text-transform: uppercase;
     letter-spacing: 0.2rem;
     height: 4.5rem;
-    margin: 0 20px;
+
+    margin: 0 auto 1rem;
+    width: 100%;
+}
+
+.inputDiv {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    margin: 0 auto;
+
 }
 
 
@@ -258,3 +277,4 @@ footer a {
          flex-direction: column;
     }
 }
+

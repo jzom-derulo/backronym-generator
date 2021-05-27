@@ -35,13 +35,19 @@ const UserInputForm = ({ handleClick, handleReset, chosenWords, inputError, user
 
   return (
     <form action="submit">
-      <label htmlFor="userInput">Type in a word</label>
-      
+
+
+      <div className="inputDiv">
+        <label htmlFor="userInput">Enter a word</label>
+
+           
       <input type="text" value={userWord} id="userInput" onChange={(event) => setUserWord(event.target.value)} minLength="0" maxLength="8" required/>
+
 
         {inputError
           ? <span className="errorMessage">Please input letters ONLY!</span>
           : ""}
+      </div>
 
 
       <button className="generateButton" onClick={handleClick(userWord)}>Generate!</button>

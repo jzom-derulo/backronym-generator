@@ -223,7 +223,11 @@ function App() {
                   getRandomWord(wordsArray);
               })
         }
+        //add time out
+        setTimeout(() => {
           setIsLoading(false);
+        }, 500)
+          
       })
 
     }, [index]
@@ -249,7 +253,7 @@ function App() {
 
       </div>
 
-      <footer>Made at <a href="https://junocollege.com/" target="_blank" rel="noopener noreferrer">Juno College</a></footer>
+      <footer>Created at <a href="https://junocollege.com/" target="_blank" rel="noopener noreferrer">Juno College</a></footer>
     </>
   );
 }
