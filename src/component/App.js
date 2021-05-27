@@ -37,6 +37,9 @@ function App() {
   // https://api.datamuse.com/words?lc=drink&sp=w*
 
   // to track the index numbers of the letters starting with the 2nd
+
+  const [userWord, setUserWord] = useState('');
+
   const [index, setIndex] = useState();
   // where the userWord letters are stored 
   const [letters, setLetters] = useState([]);
@@ -84,6 +87,14 @@ function App() {
   };
   
 
+  // placeholders for APIs
+  const numberOfAPIWords = 20;
+  // const previousWord = 'world';
+
+  const handleInput = (event) => {
+    setUserWord(event.target.value);
+  }
+
   const handleClick = (userWord) => (event) => {
     event.preventDefault();
     // split word into individual letters
@@ -118,7 +129,8 @@ function App() {
     setChosenWords([]);
     setLetters([]);
     setCurrentWord('');
-    //  console.log(userWord);
+    setUserWord('');
+    
   }
 
   const getRandomWord = (array) => {
@@ -145,19 +157,33 @@ function App() {
 
     if (index < letters.length) {
       console.log('currentLetter', currentLetter);
-      saveWord(currentWord);
-      setIndex(index + 1)
+      saveWord(currentWord);     
 
       if (index < letters.length - 1) {
-
+        setIndex(index + 1)
         const nextLetter = letters[index + 1];
         setCurrentLetter(nextLetter);
         console.log('nextLetter', nextLetter);
+      } else {
+        
+          const dbRef = firebase.database().ref();
+          console.log('saveNewBackronym called!');
+
+          const wordListToSave = [...chosenWords, currentWord];
+
+          const Backronym = {
+            word: letters.join(''),
+            backronym: wordListToSave.join(' ')
+          }
+
+          dbRef.push(Backronym);
+          //clear user input
+          setUserWord('');
+        
       }
     }
   }
 
-  const numberOfAPIWords = 50;
   useEffect(
 
     () => {
@@ -210,24 +236,20 @@ function App() {
             
             // https://api.datamuse.com/words?ml=${currentWord}&sp=${currentLetter}*&max=${numberOfAPIWords}
           // 
-            fetch(`https://api.datamuse.com/sug?s=${currentLetter}&max=${numberOfAPIWords}`)
-              .then((response) => {
-                return response.json()
-              })
-              .then((words) => {      
-                  const wordsArray = words.filter(wordObj => wordObj.word.length > 1).map((filteredWordObj) => {
-                    return filteredWordObj.word;
-                  })
-                  console.log("third api: related to last word", wordsArray)
-                  setWordOptions(wordsArray);
-                  getRandomWord(wordsArray);
-              })
+          fetch(`https://api.datamuse.com/sug?s=${currentLetter}&max=${numberOfAPIWords}`)
+                .then((response) => {
+                  return response.json()
+                })
+                .then((words) => {      
+                    const wordsArray = words.filter(wordObj => wordObj.word.length > 1).map((filteredWordObj) => {
+                      return filteredWordObj.word;
+                    })
+                    console.log("third api: related to last word", wordsArray)
+                    setWordOptions(wordsArray);
+                    getRandomWord(wordsArray);
+                })
         }
-        //add time out
-        setTimeout(() => {
           setIsLoading(false);
-        }, 500)
-          
       })
 
     }, [index]
@@ -241,7 +263,7 @@ function App() {
       <div className="wrapper">
 
         <h1>Backcronym Generator</h1>
-        <UserInputForm handleClick={handleClick} chosenWords={chosenWords} handleReset={handleReset} inputError={inputError} userWordDeconstructed={letters} />
+        <UserInputForm userWord={userWord} handleInput={handleInput} handleClick={handleClick} handleReset={handleReset} inputError={inputError}  />
 
         {/* <button onClick={changeLetters}>change the letters</button> */}
 
@@ -253,7 +275,7 @@ function App() {
 
       </div>
 
-      <footer>Created at <a href="https://junocollege.com/" target="_blank" rel="noopener noreferrer">Juno College</a></footer>
+      <footer>Made at <a href="https://junocollege.com/" target="_blank" rel="noopener noreferrer">Juno College</a></footer>
     </>
   );
 }
