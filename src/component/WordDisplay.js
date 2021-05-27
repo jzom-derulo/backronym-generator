@@ -24,17 +24,16 @@ const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, cu
     }
 
 
-
     return (
         <>
             <div className="wordDisplay">
                 <div className="wordChoice">
 
-                    {chosenWords.length === letterList.length && chosenWords.length > 0 ? "Backcronym completed!" :
+                    {chosenWords.length === letterList.length && chosenWords.length > 0 ? <h2>Backcronym completed!</h2> :
 
                         isLoading
-                            ? < BeatLoader color={"#81003C"} loading={isLoading} size={5} />
-                            : currentWord
+                            ? < BeatLoader color={"#81003C"} loading={isLoading} size={7} />
+                            : <h2>{currentWord}</h2>
                     }
                     {chosenWords.length === letterList.length && chosenWords.length > 0
                         ? ""

@@ -37,7 +37,7 @@ const UserInputForm = ({ handleClick, handleReset, chosenWords, inputError, user
     <form action="submit">
       <label htmlFor="userInput">Type in a word</label>
       
-      <input type="text" value={userWord} id="userInput" onChange={(event) => setUserWord(event.target.value)} required />
+      <input type="text" value={userWord} id="userInput" onChange={(event) => setUserWord(event.target.value)} minLength="0" maxLength="8" required/>
 
         {inputError
           ? <span className="errorMessage">Please input letters ONLY!</span>
