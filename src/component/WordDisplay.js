@@ -1,5 +1,5 @@
-
 import BeatLoader from "react-spinners/BeatLoader";
+import BackcronymDefinition from "./BackronymDefinition.js";
 
 const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, currentWord, chosenWords, isLoading }) => {
 
@@ -52,7 +52,7 @@ const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, cu
                                 </button>
                                     <button className="wordDisplayButton" onClick={handleRejectChoice} key="reject">Change Word</button>
                                 </div>
-                            :""
+                            : <BackcronymDefinition />
                     }
                 </div>
 
