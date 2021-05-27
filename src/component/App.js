@@ -37,6 +37,9 @@ function App() {
   // https://api.datamuse.com/words?lc=drink&sp=w*
 
   // to track the index numbers of the letters starting with the 2nd
+
+  const [userWord, setUserWord] = useState('');
+
   const [index, setIndex] = useState();
   // where the userWord letters are stored 
   const [letters, setLetters] = useState([]);
@@ -88,6 +91,10 @@ function App() {
   const numberOfAPIWords = 20;
   // const previousWord = 'world';
 
+  const handleInput = (event) => {
+    setUserWord(event.target.value);
+  }
+
   const handleClick = (userWord) => (event) => {
     event.preventDefault();
     // split word into individual letters
@@ -122,7 +129,8 @@ function App() {
     setChosenWords([]);
     setLetters([]);
     setCurrentWord('');
-    //  console.log(userWord);
+    setUserWord('');
+    
   }
 
   const getRandomWord = (array) => {
@@ -149,14 +157,29 @@ function App() {
 
     if (index < letters.length) {
       console.log('currentLetter', currentLetter);
-      saveWord(currentWord);
-      setIndex(index + 1)
+      saveWord(currentWord);     
 
       if (index < letters.length - 1) {
-
+        setIndex(index + 1)
         const nextLetter = letters[index + 1];
         setCurrentLetter(nextLetter);
         console.log('nextLetter', nextLetter);
+      } else {
+        
+          const dbRef = firebase.database().ref();
+          console.log('saveNewBackronym called!');
+
+          const wordListToSave = [...chosenWords, currentWord];
+
+          const Backronym = {
+            word: letters.join(''),
+            backronym: wordListToSave.join(' ')
+          }
+
+          dbRef.push(Backronym);
+          //clear user input
+          setUserWord('');
+        
       }
     }
   }
@@ -189,7 +212,7 @@ function App() {
     () => {
       setIsLoading(true);
       // right now previousWord is hard coded, we gotta swap that for whatever word the user chose last
-      fetch(`https://api.datamuse.com/words?lc=${currentWord}&sp=${currentLetter}*&max=${numberOfAPIWords}`)
+      fetch(`https://api.datamuse.com/words?lc=${chosenWords[chosenWords.length - 1]}&sp=${currentLetter}*&max=${numberOfAPIWords}`)
       .then((response) => {
         return response.json()
       })
@@ -203,7 +226,7 @@ function App() {
             return filteredWordObj.word;
           })
           console.log("words corresponding to next letter", wordsArray)
-
+          console.log('the last word was', chosenWords[chosenWords.length - 1])
           setWordOptions(wordsArray);
           getRandomWord(wordsArray);
           // if chosenWords state has length (so it only runs when we want it to) AND
@@ -229,18 +252,15 @@ function App() {
           setIsLoading(false);
       })
 
-    }, [index]
+    }, [chosenWords, currentLetter]
   )
-
-
-
 
   return (
     <>
       <div className="wrapper">
 
         <h1>Backcronym Generator</h1>
-        <UserInputForm handleClick={handleClick} chosenWords={chosenWords} handleReset={handleReset} inputError={inputError} userWordDeconstructed={letters} />
+        <UserInputForm userWord={userWord} handleInput={handleInput} handleClick={handleClick} handleReset={handleReset} inputError={inputError}  />
 
         {/* <button onClick={changeLetters}>change the letters</button> */}
 

@@ -24,22 +24,15 @@ html {
     margin: 0 auto;
     max-width: 1440px;
     width: 90%;
+    min-height: calc(100vh - 11.3rem)
 }
-.root {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-
-}
-
 /* Fonts */
 
 body {
     font-family: 'Montserrat', sans-serif;
     font-size: 2rem;
     background-color: #81003C;
-    color: #F4E6E8;
-    
+    color: #F4E6E8; 
 }
 
 h1,
@@ -63,6 +56,14 @@ ul {
     list-style-type: none;
 }
 
+.restOfWord p {
+    line-height: 20px;
+}
+
+.firstLetterList p {
+    line-height: 27px;
+}
+
 button,
 input {
     border: 1px solid #000000;
@@ -72,10 +73,12 @@ input {
 
 
 button {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
     background-color: #FF7600;
     color: #000000;
     box-shadow: 1px 1px 0.5rem #000000e0;
-    margin: 2rem;
+    margin: 1rem;
     padding: 1rem 2rem;
     height: 4.5rem;
 }
@@ -100,8 +103,8 @@ form {
 }
 
 label {
-    margin: 1rem;
-    margin-left: 0;
+    margin: 1rem 0;
+    text-align: left;
 }
 
 input {
@@ -109,6 +112,18 @@ input {
     text-transform: uppercase;
     letter-spacing: 0.2rem;
     height: 4.5rem;
+
+    margin: 0 auto 1rem;
+    width: 100%;
+}
+
+.inputDiv {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    margin: 0 auto;
+
 }
 
 
@@ -120,26 +135,27 @@ input {
     color: #000000;
     box-shadow: 1px 1px 2rem #000000e0;
     border-radius: 2rem;
-}
-
-.wordDisplay {
-    flex-basis: 30%;
-    margin-top: 2rem;
-    /* height: 70%; */
+    width: calc(50% - 6rem);
+    min-width: 360px;
+    margin: 3rem;
 }
 
 .wordChoice {
     display: block;
     padding: 2rem 2rem;
     font-family: 'Maitree', serif;
+    text-align: center;
 }
 
-.wordChoice,
-.savedBackronyms h2 {
+.wordChoice p {
+    font-family: 'Montserrat', sans-serif;
+}
+
+h2 {
+    font-size: calc(2rem + 2vw);
     text-align: center;
     text-transform: uppercase;
     text-shadow: 3px 3px #FF7600;
-    font-size: 4rem;
     font-weight: bold;
     letter-spacing: 0.3rem;
     border-bottom: 0;
@@ -195,11 +211,8 @@ input {
 
 .savedBackronyms {
     padding: 2rem;
-    margin: 2rem 0;
-    /* margin-left: auto; */
-    flex-basis: 40%;
     overflow: scroll;
-    max-height: 54vh;
+    max-height: 54vh; 
 }
 
 .backronym {
@@ -207,11 +220,12 @@ input {
     justify-content: space-between;
     box-shadow: 2px 2px 10px black;
     margin: 3rem 0;
-    padding-left: 1.5rem;
+    padding-left: 1.2rem;
     border-radius: 1rem;
 }
 
 .backronym p {
+    text-transform: capitalize;
     flex-basis: 70%;
 }
 
@@ -219,6 +233,9 @@ input {
     display: block;
 }
 
+.backronym button {
+    margin: 1.5rem;
+}
 
 /* footer styles */
 
@@ -236,7 +253,8 @@ footer a {
 
 /* media queries */
 
-@media (max-width: 700px) {
+
+@media (max-width: 800px) {
     .flexAllTheBackronyms {
         flex-wrap: wrap;
     }
@@ -248,10 +266,6 @@ footer a {
     .savedBackronyms {
         flex-basis: 100%;
     }
-
-    /* .flexButtons {
-        flex-direction: row;
-    } */
 }
 
 @media (max-width: 575px) {
@@ -262,4 +276,9 @@ footer a {
     .generateButton {
         margin: 0.5rem;
     }
+
+    .backronym {
+         flex-direction: column;
+    }
 }
+
