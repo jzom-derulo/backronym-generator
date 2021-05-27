@@ -1,31 +1,16 @@
 import { useState, useEffect } from "react";
-import firebase from '../config/firebase.js';
 
-const UserInputForm = ({ handleClick, handleReset, chosenWords, inputError, userWordDeconstructed }) => {
-  const [userWord, setUserWord] = useState('');
+const UserInputForm = ({ userWord, handleInput, handleClick, handleReset, inputError }) => {
+  
 
   // const [newBackronym, setNewBackronym] = useState('');
 
-  useEffect(() => {
-    // checkForCompleteBackronym();
+  // useEffect(() => {
 
-    if (chosenWords.length && chosenWords.length === userWordDeconstructed.length) {
-      const dbRef = firebase.database().ref();
-      console.log('saveNewBackronym called!');
 
-      const Backronym = {
-        word: userWordDeconstructed.join(''),
-        backronym: chosenWords.join(' ')
-      }
-
-      dbRef.push(Backronym);
-      setUserWord('');
-    }
-
-    setUserWord('');
-    // console.log('checkForCompleteBackronym called!');
-  }, [chosenWords, userWordDeconstructed]);
-
+  //   setUserWord('');
+  //   // console.log('checkForCompleteBackronym called!');
+  // }, [chosenWords, userWordDeconstructed]);
 
 
   return (
@@ -35,7 +20,7 @@ const UserInputForm = ({ handleClick, handleReset, chosenWords, inputError, user
         <label htmlFor="userInput">Enter a word</label>
 
 
-        <input type="text" value={userWord} id="userInput" onChange={(event) => setUserWord(event.target.value)} minLength="0" maxLength="8" required />
+        <input type="text" value={userWord} id="userInput" onChange={handleInput} minLength="0" maxLength="8" required />
 
 
         {inputError
