@@ -6,18 +6,21 @@ const UserInputForm = ({ handleClick, handleReset, chosenWords, inputError, user
 
   // const [newBackronym, setNewBackronym] = useState('');
 
+  
+  
+  const checkForCompleteBackronym = () => {
+    if (chosenWords.length && chosenWords.length === userWordDeconstructed.length) {
+      saveNewBackronym();
+    }
+  }
+  
   useEffect(() => {
+
     checkForCompleteBackronym();
     setUserWord('');
     // console.log('checkForCompleteBackronym called!');
   }, [chosenWords]);
 
-  const checkForCompleteBackronym = () => {
-
-    if (chosenWords.length && chosenWords.length === userWordDeconstructed.length) {
-      saveNewBackronym();
-    }
-  }
 
   const saveNewBackronym = () => {
     const dbRef = firebase.database().ref();

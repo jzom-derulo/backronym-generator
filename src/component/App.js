@@ -186,7 +186,7 @@ function App() {
     () => {
       setIsLoading(true);
       // right now previousWord is hard coded, we gotta swap that for whatever word the user chose last
-      fetch(`https://api.datamuse.com/words?lc=${currentWord}&sp=${currentLetter}*&max=${numberOfAPIWords}`)
+      fetch(`https://api.datamuse.com/words?lc=${chosenWords[chosenWords.length - 1]}&sp=${currentLetter}*&max=${numberOfAPIWords}`)
       .then((response) => {
         return response.json()
       })
@@ -200,7 +200,7 @@ function App() {
             return filteredWordObj.word;
           })
           console.log("words corresponding to next letter", wordsArray)
-
+          console.log('the last word was', chosenWords[chosenWords.length - 1])
           setWordOptions(wordsArray);
           getRandomWord(wordsArray);
           // if chosenWords state has length (so it only runs when we want it to) AND
@@ -230,11 +230,8 @@ function App() {
           
       })
 
-    }, [index]
+    }, [chosenWords, currentLetter]
   )
-
-
-
 
   return (
     <>
