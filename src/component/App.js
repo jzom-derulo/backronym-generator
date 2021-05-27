@@ -84,6 +84,10 @@ function App() {
   };
   
 
+  // placeholders for APIs
+  const numberOfAPIWords = 20;
+  // const previousWord = 'world';
+
   const handleClick = (userWord) => (event) => {
     event.preventDefault();
     // split word into individual letters
@@ -157,7 +161,6 @@ function App() {
     }
   }
 
-  const numberOfAPIWords = 50;
   useEffect(
 
     () => {
@@ -210,24 +213,20 @@ function App() {
             
             // https://api.datamuse.com/words?ml=${currentWord}&sp=${currentLetter}*&max=${numberOfAPIWords}
           // 
-            fetch(`https://api.datamuse.com/sug?s=${currentLetter}&max=${numberOfAPIWords}`)
-              .then((response) => {
-                return response.json()
-              })
-              .then((words) => {      
-                  const wordsArray = words.filter(wordObj => wordObj.word.length > 1).map((filteredWordObj) => {
-                    return filteredWordObj.word;
-                  })
-                  console.log("third api: related to last word", wordsArray)
-                  setWordOptions(wordsArray);
-                  getRandomWord(wordsArray);
-              })
+          fetch(`https://api.datamuse.com/sug?s=${currentLetter}&max=${numberOfAPIWords}`)
+                .then((response) => {
+                  return response.json()
+                })
+                .then((words) => {      
+                    const wordsArray = words.filter(wordObj => wordObj.word.length > 1).map((filteredWordObj) => {
+                      return filteredWordObj.word;
+                    })
+                    console.log("third api: related to last word", wordsArray)
+                    setWordOptions(wordsArray);
+                    getRandomWord(wordsArray);
+                })
         }
-        //add time out
-        setTimeout(() => {
           setIsLoading(false);
-        }, 500)
-          
       })
 
     }, [index]
@@ -253,7 +252,7 @@ function App() {
 
       </div>
 
-      <footer>Created at <a href="https://junocollege.com/" target="_blank" rel="noopener noreferrer">Juno College</a></footer>
+      <footer>Made at <a href="https://junocollege.com/" target="_blank" rel="noopener noreferrer">Juno College</a></footer>
     </>
   );
 }
