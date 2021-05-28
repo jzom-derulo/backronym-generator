@@ -2,6 +2,7 @@
 import BeatLoader from "react-spinners/BeatLoader";
 // import BackcronymDefinition
 import BackcronymDefinition from "./BackronymDefinition.js";
+import { css } from "@emotion/react";
 
 const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, currentWord, chosenWords, isLoading }) => {
     // getting a random word from the array received from the API
@@ -14,17 +15,23 @@ const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, cu
         return word.substring(1);
     }
 
+    const override = css`
+       display: block;
+       padding-top: 35px; 
+    `;
+ 
     return (
             <section className="wordDisplay">
                 <div className="wordChoice">
-
+                    
                     {/* if the user's backronym is complete: */}
                     {chosenWords.length === letterList.length && chosenWords.length > 0 
-                        ? <h2>Backcronym completed!</h2> 
+                        ? <h2 className="loadHeight">Backcronym completed!</h2>
                         : isLoading 
-                                ? < BeatLoader color={"#81003C"} loading={isLoading} size={10} />                
-                                : <h2>{currentWord}</h2>
-
+                            ? <div className="loadHeight">
+                                < BeatLoader color={"#81003C"} loading={isLoading} size={20} css={override}/>  
+                              </div>              
+                            : currentWord && <h2 className="loadHeight">{currentWord}</h2>
                     }
                     {/* same condition as above: */}
                     {chosenWords.length === letterList.length && chosenWords.length > 0
@@ -80,7 +87,10 @@ const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, cu
                             chosenWords.map((word, index) => {
                                 return (
                                     <li key={index}>
-                                        <p>{splitFirstLetter(word)}</p>
+                                        <p>
+                                            <span aria-hidden="true">{splitFirstLetter(word)}</span>
+                                            <span className="srOnly">{word}</span>
+                                        </p>
                                     </li>
                                 )
                             })
