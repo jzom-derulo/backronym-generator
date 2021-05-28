@@ -13,20 +13,22 @@ const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, cu
         return word.substring(1);
     }
     return (
-        <>
-            <div className="wordDisplay">
+            <section className="wordDisplay">
                 <div className="wordChoice">
-                    {/* conditional render depends on if backcronym is completed and chosenword is not empty*/}
-                    {chosenWords.length === letterList.length && chosenWords.length > 0
-                        ? <h2>Backcronym completed!</h2>
-                        : isLoading
-                            ? <BeatLoader color={"#81003C"} loading={isLoading} size={10} />
-                            : <h2>{currentWord}</h2>
+
+                    {chosenWords.length === letterList.length && chosenWords.length > 0 
+                        ? <h2>Backcronym completed!</h2> 
+                        : isLoading 
+                                ? < BeatLoader color={"#81003C"} loading={isLoading} size={10} />                
+                                : <h2>{currentWord}</h2>
+
                     }
                     {chosenWords.length === letterList.length && chosenWords.length > 0
                         ? ""
                         : letterList.length
-                            ?   <div className="flexButtons">
+
+                            ? <div className="flexButtons">
+
                                     <button
                                         className="wordDisplayButton"
                                         onClick={changeLetters} 
@@ -43,6 +45,9 @@ const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, cu
                             : <BackcronymDefinition />
                     }
                 </div>
+                     
+                {letterList.length ? 
+
                 <div className="wordList">
                     <ul className="firstLetterList">
                         {
@@ -68,10 +73,9 @@ const WordDisplay = ({ wordOptions, letterList, changeLetters, getRandomWord, cu
                                 )
                             })
                         }
-                    </ul> {/* restOfWord */}
-                </div> {/* wordList */}
-            </div> {/* wordDisplay */}
-        </>
+                    </ul> 
+                </div>  : "" }
+            </section> 
     )
 }
 export default WordDisplay;
