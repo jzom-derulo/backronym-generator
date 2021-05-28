@@ -20,7 +20,7 @@ const UserInputForm = ({ userWord, handleInput, handleClick, handleReset, inputE
                 }
             </div>
 
-            <div>
+            <div className="formButtons">
                 <button className="generateButton" onClick={handleClick(userWord)}>Generate!</button>
                 <button onClick={handleReset} >Reset Generator</button>
             </div>
