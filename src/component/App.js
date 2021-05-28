@@ -211,7 +211,7 @@ function App() {
     return (
         <>
             <div className="wrapper">
-                <h1>Backcronym Generator</h1>
+                <h1>Backronym Generator</h1>
 
                 <UserInputForm
                     userWord={userWord}
