@@ -16,6 +16,10 @@ const SavedBackronyms = ({ backronymList, deleteBackronym, firebaseLoading }) =>
                 ? < BeatLoader color={"#81003C"} loading={firebaseLoading} size={20} css={override} />
                 :   <ul>
                         {
+                            // backronym = {
+                            //     word: USER'S INPUT,
+                            //     backronym: BACKRONYM CREATED BY USER USING THEIR WORD
+                            // }
                             backronymList.map((backronym) => {
                                 return (
                                     <li className="backronym" key={backronym.key}>
@@ -30,4 +34,5 @@ const SavedBackronyms = ({ backronymList, deleteBackronym, firebaseLoading }) =>
         </section>
     )
 }
+
 export default SavedBackronyms;
