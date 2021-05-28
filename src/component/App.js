@@ -6,10 +6,10 @@ import WordDisplay from './WordDisplay.js';
 import SavedBackronyms from "./SavedBackronyms.js";
 
 function App() {
-    // for the first letter
+    // for the first letter:
     // https://api.datamuse.com/sug?s={the first letter of userWord}
 
-    // for every subsequent letter
+    // for every subsequent letter:
     // https://api.datamuse.com/words?lc={the last item in chosenWords}&sp={currentLetter}*
 
     // the word submitted by the user to create a backronym with
