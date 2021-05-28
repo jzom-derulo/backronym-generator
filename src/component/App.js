@@ -79,7 +79,7 @@ function App() {
         event.preventDefault();
 
         // make sure the user can only input letters and spread their word into individual letters
-        //define regular expressions
+        // define regular expressions
         let re = /^([a-z]+)$/i;
 
         if (re.test(userWord)) {
