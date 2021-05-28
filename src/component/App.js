@@ -5,271 +5,244 @@ import UserInputForm from './UserInputForm.js';
 import WordDisplay from './WordDisplay.js';
 import SavedBackronyms from "./SavedBackronyms.js";
 
-
-// import hooks
-// create firebase database and import 
-
-// make a form 
-// create input for user to add word
-//button to submit form 
-//
-
-// store input value in a varible 
-// spread the variable to access each letter
-
-
-// user inputs word and clicks "generate"
-// word shows up vertically 
-// api gives sugggestion for word associated with first letter which is stored in state array
-// given tow options, "confirm" or "change" (checkmark/X, buttons, or whatever)
-// if they reject, word is removed and new word is added as a suggestion (sug)
-// if user choses this word, it stays, and ...
-//a new word for next letter is suggested with a different endpoint to associate with the previous word endpoint: (/words?lc={acceptedWord})
-//..and so forth till word is done. 
-//once phrase is generated  to the users liking, button is clicked to save to the database which will append all saved phrases to the page
-
-
 function App() {
-  // for the first letter
-  // https://api.datamuse.com/sug?s=rawand
+    // for the first letter
+    // https://api.datamuse.com/sug?s={the first letter of userWord}
 
-  // for every subsequent letter
-  // https://api.datamuse.com/words?lc=drink&sp=w*
+    // for every subsequent letter
+    // https://api.datamuse.com/words?lc={the last item in chosenWords}&sp={currentLetter}*
 
-  // to track the index numbers of the letters starting with the 2nd
+    // the word submitted by the user to create a backronym with
+    const [userWord, setUserWord] = useState('');
 
-  const [userWord, setUserWord] = useState('');
+    // the letters of userWord spread into an array 
+    const [letters, setLetters] = useState([]);
 
-  const [index, setIndex] = useState();
-  // where the userWord letters are stored 
-  const [letters, setLetters] = useState([]);
-  // to hold which letter is currently in state
+    // the index of the letters array
+    const [index, setIndex] = useState();
 
-  const [ currentLetter, setCurrentLetter ] = useState('')
-  // words corresponding to the current letter
-  const [ wordOptions, setWordOptions ] = useState([]);
+    // the letter within 'letters' at the current index
+    const [currentLetter, setCurrentLetter] = useState('')
 
-  // holds the current word the user can see
-  const [ currentWord, setCurrentWord ] = useState("")
-  // holds the current backronym
-  const [ chosenWords, setChosenWords ] = useState([])
+    // words corresponding to the current letter that are returned from the API
+    const [wordOptions, setWordOptions] = useState([]);
 
-  const [isLoading, setIsLoading] = useState(false)
+    // the word from wordOptions that is currently being suggested to the user
+    const [currentWord, setCurrentWord] = useState("")
 
-  const [ backronyms, setBackronyms ] = useState([]);
+    // the words that the user has chosen so far for the current backronym being generated
+    const [chosenWords, setChosenWords] = useState([])
 
-  const [ inputError, setInputError ] = useState(false);
+    // when set to true, generator is waiting to receive API data
+    const [isLoading, setIsLoading] = useState(false)
 
-  const [firebaseLoading, setFirebaseLoading] = useState(false)
+    // the completed backronyms that are stored in the database
+    const [backronyms, setBackronyms] = useState([]);
 
+    // user input error message is triggered when set to true
+    const [inputError, setInputError] = useState(false);
 
-  useEffect(() => {
-    setFirebaseLoading(true);
-    const dbRef = firebase.database().ref();
+    // when set to true, app is loading data from Firebase
+    const [firebaseLoading, setFirebaseLoading] = useState(false)
 
-    dbRef.on('value', (response) => {
-      const newDataArray = []
-      const data = response.val();
+    // reading data from Firebase and assigning it to the state of the list of finished backronyms to be displayed
+    useEffect(() => {
+        setFirebaseLoading(true);
+        const dbRef = firebase.database().ref();
 
-      for (let key in data) {
-        newDataArray.unshift({ key: key, word: data[key].word, backronym: data[key].backronym });
-      }
+        dbRef.on('value', (response) => {
+            const newDataArray = []
+            const data = response.val();
 
-      setBackronyms(newDataArray);
+            for (let key in data) {
+                newDataArray.unshift({ key: key, word: data[key].word, backronym: data[key].backronym });
+            }
 
-      setFirebaseLoading(false);
-    });
+            setBackronyms(newDataArray);
 
-  }, []);
+            setFirebaseLoading(false);
+        });
 
-  const handleBackronymDelete = (backronym) => {
-    const dbRef = firebase.database().ref();
-    dbRef.child(backronym.key).remove();
-  };
+    }, []);
 
-  const handleInput = (event) => {
-    setUserWord(event.target.value);
-  }
+    // delete items from Firebase
+    const handleBackronymDelete = (backronym) => {
+        const dbRef = firebase.database().ref();
+        dbRef.child(backronym.key).remove();
+    };
 
-  const handleClick = (userWord) => (event) => {
-    event.preventDefault();
-    // split word into individual letters
-    console.log(userWord);
-
-    
-    //define regular expressions
-    let re = /^([a-z]+)$/i;    
-    console.log(re.test(userWord));
-
-    if (re.test(userWord)) {
-      setInputError(false);
-      const userLetters = [...userWord];
-      console.log('userLetters:', userLetters);
-      // setFirstLetter(userLetters[0]);
-      setLetters(userLetters);
-      setCurrentLetter(userLetters[0]);
-      setIndex(0);
-  
-      setChosenWords([]);
-    } else {
-      console.log("please enter letters only")
-      setInputError(true);
+    const handleInput = (event) => {
+        setUserWord(event.target.value);
     }
 
+    const handleClick = (userWord) => (event) => {
+        event.preventDefault();
 
-  }
+        // make sure the user can only input letters and spread their word into individual letters
+        // define regular expressions
+        let re = /^([a-z]+)$/i;
 
-  const handleReset = (event) => {
+        if (re.test(userWord)) {
+            setInputError(false);
+            const userLetters = [...userWord];
 
-    event.preventDefault();
-    setChosenWords([]);
-    setLetters([]);
-    setCurrentWord('');
-    setUserWord('');
-    
-  }
-
-  const getRandomWord = (array) => {
-    // console.log('getRandomWord has been called/wordOptions:', wordOptions);
-    const randomIndex = Math.floor(Math.random() * array.length);
-    const randomWord = array[randomIndex];
-
-    setCurrentWord(randomWord); 
-    console.log('randomWord', randomWord);
-  }
-
-
-  const saveWord = (word) => {
-    setChosenWords([...chosenWords, word]);
-  }
-  // console.log('users chosen words so far', chosenWords);
-
-
-  const changeLetters = () => {
-    // when the button is clicked, move on to the next index number in the array of letters
-    // while the index is less than the length of the array, move on to the next letter
-    console.log("currentWord: ", currentWord);
-    console.log('the index number is:', index)
-
-    if (index < letters.length) {
-      console.log('currentLetter', currentLetter);
-      saveWord(currentWord);     
-
-      if (index < letters.length - 1) {
-        setIndex(index + 1)
-        const nextLetter = letters[index + 1];
-        setCurrentLetter(nextLetter);
-        console.log('nextLetter', nextLetter);
-      } else {
-        
-          const dbRef = firebase.database().ref();
-          console.log('saveNewBackronym called!');
-
-          const wordListToSave = [...chosenWords, currentWord];
-
-          const Backronym = {
-            word: letters.join(''),
-            backronym: wordListToSave.join(' ')
-          }
-
-          dbRef.push(Backronym);
-          //clear user input
-          setUserWord('');
-        
-      }
-    }
-  }
-
-  const numberOfAPIWords = 30;
-  useEffect(
-
-    () => {
-      setIsLoading(true);
-      fetch(`https://api.datamuse.com/sug?s=${letters[0]}&max=${numberOfAPIWords}`)
-        .then((response) => {       
-          return response.json()
-        })
-        .then((firstWords) => {
-        
-          if (letters.length) {
-           const firstWordsArray = firstWords.filter(wordObj => wordObj.word.length > 1).map((filteredWordObj) => {
-                return filteredWordObj.word;
-            })
-            console.log("words corresponding to first letter", firstWordsArray)
-            setWordOptions(firstWordsArray);
-            getRandomWord(firstWordsArray);
-          }
-          setIsLoading(false);
-        })
-    }, [letters])
-
-    // console.log('index', index)
-
-  useEffect(
-    () => {
-      setIsLoading(true);
-      // right now previousWord is hard coded, we gotta swap that for whatever word the user chose last
-      fetch(`https://api.datamuse.com/words?lc=${chosenWords[chosenWords.length - 1]}&sp=${currentLetter}*&max=${numberOfAPIWords}`)
-      .then((response) => {
-        return response.json()
-      })
-      .then((words) => {
-        // if the chosenWord state has length AND if there are more than 2 choices
-        if (chosenWords.length && words.length > 5) {
-          console.log('chosen words so far', chosenWords.length)
-          console.log(" there are ", words.length, "available words");
-          // console.log('wordOptions length', currentLetter, wordOptions.length)
-          const wordsArray = words.filter(wordObj => wordObj.word.length > 1).map((filteredWordObj) => {
-            return filteredWordObj.word;
-          })
-          console.log("words corresponding to next letter", wordsArray)
-          console.log('the last word was', chosenWords[chosenWords.length - 1])
-          setWordOptions(wordsArray);
-          getRandomWord(wordsArray);
-          // if chosenWords state has length (so it only runs when we want it to) AND
-            // if the last API call retrieved less than 2 words
-        } else if (chosenWords.length && words.length <= 5) {
-            console.log('third api call!')
-            
-            // https://api.datamuse.com/words?ml=${currentWord}&sp=${currentLetter}*&max=${numberOfAPIWords}
-          // 
-          fetch(`https://api.datamuse.com/sug?s=${currentLetter}&max=${numberOfAPIWords}`)
-                .then((response) => {
-                  return response.json()
-                })
-                .then((words) => {      
-                    const wordsArray = words.filter(wordObj => wordObj.word.length > 1).map((filteredWordObj) => {
-                      return filteredWordObj.word;
-                    })
-                    console.log("third api: related to last word", wordsArray)
-                    setWordOptions(wordsArray);
-                    getRandomWord(wordsArray);
-                })
+            setLetters(userLetters);
+            setCurrentLetter(userLetters[0]);
+            setIndex(0);
+            setChosenWords([]);
+        } else {
+            setInputError(true);
         }
-          setIsLoading(false);
-      })
+    }
 
-    }, [chosenWords, currentLetter]
-  )
+    // resetting the user input and word/letter/current backronym states
+    const handleReset = (event) => {
+        event.preventDefault();
+        setChosenWords([]);
+        setLetters([]);
+        setCurrentWord('');
+        setUserWord('');
+    }
 
-  return (
-    <>
-      <div className="wrapper">
+    // selecting a random item from the array returned from the API
+    const getRandomWord = (array) => {
+        const randomIndex = Math.floor(Math.random() * array.length);
+        const randomWord = array[randomIndex];
 
-        <h1>Backcronym Generator</h1>
-        <UserInputForm userWord={userWord} handleInput={handleInput} handleClick={handleClick} handleReset={handleReset} inputError={inputError}  />
+        setCurrentWord(randomWord);
+    }
 
-        <div className="flexAllTheBackronyms">
-          <WordDisplay wordOptions={wordOptions} letterList={letters} changeLetters={changeLetters} getRandomWord={getRandomWord} currentWord={currentWord} chosenWords={chosenWords} isLoading={isLoading} />
+    // when the user adds a word to their current backronym, save that word while the backronym is in progress
+    const saveWord = (word) => {
+        setChosenWords([...chosenWords, word]);
+    }
 
-          <SavedBackronyms backronymList={backronyms} deleteBackronym={handleBackronymDelete} firebaseLoading={firebaseLoading}/>
-        </div>
+    // when the user clicks the 'accept word' button...
+    const changeLetters = () => {
+        // save the newly accepted word...
+        if (index < letters.length) {
+            saveWord(currentWord);
 
-      </div>
+            // ...and if there are unused letters left in the backronym, move on to the next letter
+            // else the backronym is complete and is pushed to Firebase
+            if (index < letters.length - 1) {
+                setIndex(index + 1)
+                const nextLetter = letters[index + 1];
+                setCurrentLetter(nextLetter);
+            } else {
+                const dbRef = firebase.database().ref();
 
-      <footer>Made at <a href="https://junocollege.com/" target="_blank" rel="noopener noreferrer">Juno College</a></footer>
-    </>
-  );
+                const wordListToSave = [...chosenWords, currentWord];
+
+                const backronym = {
+                    word: letters.join(''),
+                    backronym: wordListToSave.join(' ')
+                }
+                dbRef.push(backronym);
+
+                //clear user input
+                setUserWord('');
+            }
+        }
+    }
+
+    // the number of words we want to receive from the API when it is called
+    const numberOfAPIWords = 30;
+
+    // API call for first letter of userWord
+    useEffect(
+        () => {
+            setIsLoading(true);
+            fetch(`https://api.datamuse.com/sug?s=${letters[0]}&max=${numberOfAPIWords}`)
+                .then((response) => {
+                    return response.json()
+                })
+                .then((firstWords) => {
+
+                    if (letters.length) {
+                        // filter out one-letter words from the API response 
+                        const firstWordsArray = firstWords.filter(wordObj => wordObj.word.length > 1).map((filteredWordObj) => {
+                            return filteredWordObj.word;
+                        })
+                        setWordOptions(firstWordsArray);
+                        getRandomWord(firstWordsArray);
+                    }
+                    setIsLoading(false);
+                })
+        }, [letters])
+
+    // API call for all letters except the first one
+    useEffect(
+        () => {
+            setIsLoading(true);
+            fetch(`https://api.datamuse.com/words?lc=${chosenWords[chosenWords.length - 1]}&sp=${currentLetter}*&max=${numberOfAPIWords}`)
+                .then((response) => {
+                    return response.json()
+                })
+                .then((words) => {
+                    // if the chosenWord state has length AND if there are more than 5 choices returned from the API
+                    if (chosenWords.length && words.length > 5) {
+                        // filter out one-letter words from the API response
+                        const wordsArray = words.filter(wordObj => wordObj.word.length > 1).map((filteredWordObj) => {
+                            return filteredWordObj.word;
+                        })
+                        setWordOptions(wordsArray);
+                        getRandomWord(wordsArray);
+                    } else if (chosenWords.length && words.length <= 5) {
+                        // backup API call to the endpoint used for the first letter if less than 5 options are returned from the other endpoint
+                        fetch(`https://api.datamuse.com/sug?s=${currentLetter}&max=${numberOfAPIWords}`)
+                            .then((response) => {
+                                return response.json()
+                            })
+                            .then((words) => {
+                                // filter out one-letter words from the API response
+                                const wordsArray = words.filter(wordObj => wordObj.word.length > 1).map((filteredWordObj) => {
+                                    return filteredWordObj.word;
+                                })
+                                setWordOptions(wordsArray);
+                                getRandomWord(wordsArray);
+                            })
+                    }
+                    setIsLoading(false);
+                })
+        }, [chosenWords, currentLetter]
+    )
+
+    return (
+        <>
+            <div className="wrapper">
+                <h1>Backcronym Generator</h1>
+
+                <UserInputForm
+                    userWord={userWord}
+                    handleInput={handleInput}
+                    handleClick={handleClick}
+                    handleReset={handleReset}
+                    inputError={inputError}
+                />
+
+                <div className="flexAllTheBackronyms">
+                    <WordDisplay
+                        wordOptions={wordOptions}
+                        letterList={letters}
+                        changeLetters={changeLetters}
+                        getRandomWord={getRandomWord}
+                        currentWord={currentWord}
+                        chosenWords={chosenWords}
+                        isLoading={isLoading}
+                    />
+
+                    <SavedBackronyms
+                        backronymList={backronyms}
+                        deleteBackronym={handleBackronymDelete}
+                        firebaseLoading={firebaseLoading}
+                    />
+                </div>
+            </div>
+
+            <footer>Created at <a href="https://junocollege.com/" target="_blank" rel="noopener noreferrer">Juno College</a></footer>
+        </>
+    );
 }
 
 export default App;
