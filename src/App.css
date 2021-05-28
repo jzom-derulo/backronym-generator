@@ -26,6 +26,7 @@ html {
     width: 90%;
     min-height: calc(100vh - 11.3rem)
 }
+
 /* Fonts */
 
 body {
@@ -35,23 +36,22 @@ body {
     color: #F4E6E8; 
 }
 
+ul {
+    list-style-type: none;
+}
+
 h1,
-h2,
-h3 {
+h2 {
     font-family: 'Maitree', serif;
     margin: 0;
 }
 
 h1 {
     padding-top: 5rem;
-    font-size: 6rem;
+    font-size: calc(7rem + 1vw);
     color: #F4E6E8;
     text-shadow: 0.5rem 0.5rem 2rem black;
-    /* margin-bottom: 2.5rem; */
-}
-
-ul {
-    list-style-type: none;
+    line-height: 70px;
 }
 
 .restOfWord p {
@@ -69,7 +69,6 @@ input {
     padding: 1rem 2rem;
 }
 
-
 button {
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
@@ -79,6 +78,7 @@ button {
     margin: 1rem;
     padding: 1rem 2rem;
     height: 4.5rem;
+    transition: all 200ms ease;
 }
 
 button:hover,
@@ -114,6 +114,10 @@ input {
     letter-spacing: 0.2rem;
     height: 4.5rem;
     width: 100%;
+}
+
+.errorMessage {
+    margin-top: 0.8rem;
 }
 
 .inputDiv {
@@ -175,6 +179,11 @@ h2 {
     letter-spacing: 0.3rem;
     border-bottom: 0;
     border-radius: 2rem 2rem 0 0;
+    padding-top: 25px;
+}
+
+.loadHeight {
+    height: 80px;
 }
 
 .letterList p {
@@ -204,8 +213,6 @@ h2 {
     margin: 0;
     margin-top: 2rem;
 }
-
-
 
 .restOfWord p {
     margin: 0;
@@ -263,11 +270,15 @@ footer a {
 
 /* media queries */
 
-
-@media (max-width: 800px) {
-      h1 {
+@media (max-width: 820px) {
+    h1 {
         text-align: center;
-        font-size: calc(3rem + 5vw)
+        font-size: calc(3rem + 5vw);
+        line-height: 55px;
+    }
+
+    h2 {
+        text-shadow: 2px 2px #FF7600;
     }
 
     .flexAllTheBackronyms {
@@ -289,10 +300,10 @@ footer a {
         margin: 0.5rem;
     }
 
-    .backronym {
-        flex-direction: column;
+    h2 {
+        text-shadow: 1px 1px #FF7600;
     }
-
+    
     form {
         width: 100%;
         min-width: 0;
@@ -304,6 +315,10 @@ footer a {
 
     .formButtons button:first-child {
         margin: 1.5rem 0 0.5rem;
+    }
+
+    .backronym {
+        flex-direction: column;
     }
 }
 

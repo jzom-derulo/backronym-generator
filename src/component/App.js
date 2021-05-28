@@ -115,8 +115,6 @@ function App() {
       console.log("please enter letters only")
       setInputError(true);
     }
-
-
   }
 
   const handleReset = (event) => {
@@ -126,7 +124,7 @@ function App() {
     setLetters([]);
     setCurrentWord('');
     setUserWord('');
-    
+
   }
 
   const getRandomWord = (array) => {
@@ -175,7 +173,7 @@ function App() {
           dbRef.push(Backronym);
           //clear user input
           setUserWord('');
-        
+      
       }
     }
   }

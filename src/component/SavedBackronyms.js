@@ -13,7 +13,7 @@ const SavedBackronyms = ({ backronymList, deleteBackronym, firebaseLoading }) =>
             <h2>Completed Backronyms</h2>
 
             {firebaseLoading
-                ? < BeatLoader color={"#81003C"} loading={firebaseLoading} size={10} css={override} />
+                ? < BeatLoader color={"#81003C"} loading={firebaseLoading} size={20} css={override} />
                 :   <ul>
                         {
                             backronymList.map((backronym) => {
